@@ -1,0 +1,7 @@
+{% for comment in comments %}
+            <div class="col-md-12">
+              <img src={{ asset('img/'~comment.trick.author.avatar.url) }} alt="avatar">
+              <h4> {{ comment.author.username }} </h4>
+              <p> {{ comment.content }} </p>
+            </div>
+          {% endfor %}

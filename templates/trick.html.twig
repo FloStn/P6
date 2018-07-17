@@ -1,0 +1,64 @@
+{% extends 'layout.html.twig' %}
+
+{% block background %}
+<!-- Full Page Intro -->
+  <div class="view" data-jarallax='{"speed": 0.2}' style="background-image: url('../../img/snowboard-227541_1920.jpg'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+      <!-- Content -->
+      <div class="container">
+        <!--Grid row-->
+        <div class="row wow fadeIn" style="background-color: #fff;">
+          <!--Grid column-->
+          <div class="col-md-12 text-center">
+            <img src={{ asset('img/'~trick.images|first.url) }} alt={{ trick.images|first.alt }}>
+            <h1> {{ trick.name }} </h1>
+          </div>
+          <!--Grid column-->
+          {% for image in trick.images %}
+            <div class="col-md-3">
+              <img src={{ asset('img/'~image.url) }} alt={{ image.alt }}>
+            </div>
+          {% endfor %}
+
+          {% for video in trick.videos %}
+            <div class="col-md-3">
+              <iframe src={{ video.iframeUrl }}>
+            </div>
+          {% endfor %}
+
+          <div class="col-md-12">
+            <h3> {{ trick.description }} </h3>
+          </div>
+          
+          <div class="col-md-6">
+            <h4> Publié le {{ trick.publishDate|date("d/m/Y") }} par {{ trick.author.username }}. Figure appartenant au groupe {{ trick.trickGroup.name }}. </h4>
+          </div>
+
+          {% if trick.editDate is not empty %}
+          <div class="col-md-6">
+            <h4> Dernière modification effectuée le {{ trick.editDate|date("d/m/Y") }}. </h4>
+          {% endif %}
+
+          <form>
+            <input type="text" name="Laisser un commentaire...">
+            <input type="submit" value="Commenter !">
+          </form>
+          
+          {% for comment in comments %}
+            <div class="col-md-12">
+              <img src={{ asset('img/'~comment.trick.author.avatar.url) }} alt="avatar">
+              <h4> {{ comment.author.username }} </h4>
+              <p> {{ comment.content }} </p>
+            </div>
+          {% endfor %}
+
+        </div>
+        <!--Grid row-->
+      </div>
+      <!-- Content -->
+    </div>
+    <!-- Mask & flexbox options-->
+  </div>
+  <!-- Full Page Intro -->
+{% endblock %}

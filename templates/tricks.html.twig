@@ -1,0 +1,79 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block background %}
+  <!-- Full Page Intro -->
+  <div class="view  jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('../../img/snowboard-227541_1920.jpg'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+      <!-- Content -->
+      <div class="container">
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+          <!--Grid column-->
+          <div class="col-md-12 text-center">
+            <h1 class="white-text display-4 mb-0 wow fadeInUp">Apprenez en toute simplicité</h1>
+            <h5 class="white-text wow fadeInUp" data-wow-delay="0.5s">Consultez les fiches techniques et échangez avec la communauté !</h5>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </div>
+      <!-- Content -->
+    </div>
+    <!-- Mask & flexbox options-->
+  </div>
+  <!-- Full Page Intro -->
+{% endblock %}
+
+{% block main %}
+      <!--Section: Main info-->
+      <section class="mt-5">
+
+        <!--Grid row-->
+        <div id="tricks" class="row">
+
+{% for trick in tricks %}
+
+<div class="col-lg-3 col-md-12 mb-3">
+
+<div class="card">
+
+  <!-- Card image -->
+  <div class="view overlay">
+    <img class="card-img-top" src={{ '../../img/' ~ trick.getImages['0'].url }} alt={{ trick.getImages['0'].alt }}></img>
+    <a href="http://www.openclassrooms.com">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+
+  <!-- Card content -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <!-- Title -->
+        <h4 class="card-title" style="font-size: 1.1rem;">{{ trick.name }}</h4>
+      </div>
+      <div class="mx-auto col-md-6 text-right text-sm-right">
+        <a class="fas fa-pen"></a>
+        <a class="fas fa-trash-alt text-danger" data-toggle="modal" data-target="#modalConfirmDelete"></a>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+{% endfor %}
+
+      {{ include('modals.html.twig') }}
+
+        </div>
+        <!--Grid row-->
+
+        <div class="d-flex justify-content-center">
+          <a class="btn btn-primary" href= {{'../../index.php/home/' ~ show ~ '#tricks'}}>Voir plus de figures</a>
+        </div>
+      </section>
+      <!--Section: Main info-->
+{% endblock %}

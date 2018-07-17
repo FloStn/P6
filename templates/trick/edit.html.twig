@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+
+{% block javascripts %}
+
+{% endblock %}
+
+{% block main %}
+      
+      <div class="col-md-12">
+        {{ form_start(trickForm) }}
+          
+      </div>
+
+          <div class="col-md-12 text-center">
+            <h1> {{ form_widget(trickForm.name) }} </h1>
+          </div>
+          <!--Grid column-->
+          {% for image in trick.images %}
+            <div class="col-md-3">
+              <img src={{ asset('img/'~image.url) }} alt={{ image.alt }}>
+            </div>
+          {% endfor %}
+
+          {% for video in trick.videos %}
+            <div class="col-md-3">
+              <iframe src={{ video.iframeUrl }}>
+            </div>
+          {% endfor %}
+          
+          <div class="col-md-6">
+            <h4> Publié le {{ trick.publishDate|date("d/m/Y") }} par {{ trick.author.username }}. Figure appartenant au groupe {{ trick.trickGroup.name }}. </h4>
+          </div>
+
+          {% if trick.editDate is not empty %}
+          <div class="col-md-6">
+            <h4> Dernière modification effectuée le {{ trick.editDate|date("d/m/Y") }}. </h4>
+          </div>
+          {% endif %}
+
+          <div class="col-md-12">
+            {{ form_widget(trickForm.description) }}
+          </div>
+
+          <div class="col-md-12">
+            <select class="mdb-select">
+              <option value="" disabled selected>{{ trick.trickGroup.name }}</option>
+              {% for group in trickGroups %}
+              <option value="{{ group.id }}">{{ group.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-md-12">
+            <button type="submit">Valider</button>
+            {{ form_end(trickForm) }}
+          </div>
+  
+{% endblock %}
