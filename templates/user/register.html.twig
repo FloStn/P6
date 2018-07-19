@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+
+    <div class="col-md-12">
+        <h1>Créer un compte</h1>
+    </div>
+    <br>
+    <div class="col-md-6">
+        {{ form_start(user_form) }}
+        <br>
+        {{ form_label(user_form.username, 'Nom d\'utilisateur') }}
+        <br>
+        {{ form_widget(user_form.username) }}
+        <br>
+        {{ form_label(user_form.email) }}
+        <br>
+        {{ form_widget(user_form.email) }}
+        <br>
+        {{ form_label(user_form.rawPassword, 'Mot de passe') }}
+        <br>
+        {{ form_widget(user_form.rawPassword.first) }}
+        <br>
+        {{ form_label(user_form.rawPassword, 'Confirmez votre mot de passe') }}
+        <br>
+        {{ form_widget(user_form.rawPassword.second) }}
+        <br>
+        <button type="submit" class="btn btn-light">S'enregistrer</button>
+        {{ form_end(user_form) }}
+    </div>
+    
+{% endblock %}

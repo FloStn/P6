@@ -21,6 +21,11 @@ class Avatar
      */
     private $url;
 
+    public function __construct()
+    {
+        $this->setUrl("default.png");
+    }
+
     public function getId()
     {
         return $this->id;
