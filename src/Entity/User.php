@@ -33,30 +33,32 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=155, unique=true)
+     * @ORM\Column(type="string", length=155, unique=true, nullable=true)
      */
     private $token;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isActive;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Avatar", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $avatar;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $salt;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $roles = array();
+
+    private $rawPassword;
 
     public function getId()
     {
@@ -160,7 +162,19 @@ class User implements UserInterface
     }
 
     public function eraseCredentials()
-  {
+    {
 
-  }
+    }
+
+    public function getRawPassword(): ?string
+    {
+        return $this->rawPassword;
+    }
+
+    public function setRawPassword(string $rawPassword): self
+    {
+        $this->rawPassword = $rawPassword;
+
+        return $this;
+    }
 }
