@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\Avatar;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -33,7 +34,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=155, unique=true, nullable=true)
+     * @ORM\Column(type="string", length=155, nullable=true)
      */
     private $token;
 
@@ -49,16 +50,21 @@ class User implements UserInterface
     private $avatar;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $salt;
-
-    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private $roles = array();
 
     private $rawPassword;
+
+    private $salt;
+
+    public function __construct()
+    {
+        $this->roles = array('ROLE_USER');
+        $avatar = new Avatar();
+        $this->avatar = $avatar;
+        $this->isActive = 0;
+    }
 
     public function getId()
     {
