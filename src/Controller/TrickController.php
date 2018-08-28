@@ -9,12 +9,15 @@ use App\Entity\Comment;
 use App\Entity\TrickGroup;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\TrickType;
+use App\Form\VideoType;
 use App\Repository\TrickRepository;
 use App\Repository\TrickGroupRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Doctrine\Common\Collections\ArrayCollection;
+use App\Handler\Form\TrickFormHandler;
 
 class TrickController extends Controller
 {
@@ -86,7 +89,7 @@ class TrickController extends Controller
      * 
      * @param Request $request
      * 
-     * @Security("is_granted('ROLE_USER')")
+     
      */
     public function edit(Request $request, TrickRepository $trickRepository, TrickGroupRepository $trickGroupRepository, EntityManagerInterface $em)
     {
@@ -94,13 +97,31 @@ class TrickController extends Controller
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $trickGroups = $trickGroupRepository->findAll();
 
-        $trickForm = $this->createForm(TrickType::class, $trick);
+        // save the records that are in the database first to compare them with the new one the user sent
+        // make sure this line comes before the $form->handleRequest();
+        $orignalExp = new ArrayCollection();
+        foreach ($trick->getVideos() as $video) {
+            $orignalExp->add($video);
+        }
 
-        $trickForm->handleRequest($request);
+        $trickForm = $this->createForm(TrickType::class, $trick)->handleRequest($request);
+
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
+            // get rid of the ones that the user got rid of in the interface (DOM)
+            foreach ($orignalExp as $video) {
+                // check if the exp is in the $user->getExp()
+//                dump($user->getExp()->contains($exp));
+                if ($trick->getVideos()->contains($video) === false) {
+                    $em->remove($video);
+                }
+            }
+            $em->persist($trick);
             $em->flush();
-            return $this->redirectToRoute('trick_details', array('trick' => $trick, 'slug' => $slug));
-          }
+
+        
+            return $this->redirectToRoute('trick_edit', array('trick' => $trick, 'slug' => $slug));
+        }
+        
 
         return $this->render('trick/edit.html.twig', array(
             'trick' => $trick,
