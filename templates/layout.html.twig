@@ -16,9 +16,7 @@
   <link href="{{ asset('css/mdb.css') }}" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-  <!-- Include Editor style. -->
-<link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_editor.min.css' rel='stylesheet' type='text/css' />
-<link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_style.min.css' rel='stylesheet' type='text/css' />
+  <link href="{{ asset('css/flickity.css') }}" rel="stylesheet">
   {% endblock %}
 
 </head>
@@ -132,16 +130,18 @@
 
   {% block javascripts %}
   <!-- SCRIPTS -->
-  <!-- JQuery -->
-  <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+   <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
   <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="{{ asset('js/popper.min.js') }}"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="{{ asset('js/mdb.js') }}"></script>
-<!-- Include JS file. -->
-<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/js/froala_editor.min.js'></script>
+  <script type="text/javascript" src="{{ asset('js/collection.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/flickity.pkgd.js') }}"></script>
   <!-- Initializations -->
   <script type="text/javascript">
     // Animations initialization

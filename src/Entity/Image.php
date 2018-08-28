@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
@@ -32,6 +33,9 @@ class Image
      */
     private $trick;
 
+    
+    private $file;
+
     public function getId()
     {
         return $this->id;
@@ -58,6 +62,17 @@ class Image
     {
         $this->url = $url;
 
+        return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file)
+    {
+        $this->file = $file;
         return $this;
     }
 

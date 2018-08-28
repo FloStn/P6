@@ -79,7 +79,7 @@ class Trick
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", cascade="all", orphanRemoval=true)
      */
     private $videos;
 
@@ -91,8 +91,9 @@ class Trick
 
     public function __construct()
     {
-        $this->messages = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId()
@@ -185,14 +186,14 @@ class Trick
     }
 
     /**
-     * @return Collection|Message[]
+     * @return Collection|Comments[]
      */
-    public function getMessages(): Collection
+    public function getComments(): Collection
     {
-        return $this->messages;
+        return $this->comments;
     }
 
-    public function addMessage(Message $message): self
+    public function addComment(Comment $comment): self
     {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
@@ -223,6 +224,19 @@ class Trick
         return $this->images;
     }
 
+    public function addImage(Image $image)
+    {
+        $this->$images[] = $images;
+        $image->setTrick($this);
+
+        return $this;
+    }
+
+    public function removeImage(Image $image)
+    {
+        $this->image->removeElement($image);
+    }
+
     /**
      * @return Collection|Video[]
      */
@@ -241,5 +255,19 @@ class Trick
         $this->imageForward = $imageForward;
 
         return $this;
+    }
+
+    public function addVideo(Video $video)
+    {
+        $this->videos[] = $video;
+        // setting the current user to the $exp,
+        // adapt this to whatever you are trying to achieve
+        $video->setTrick($this);
+        return $this;
+    }
+
+    public function removeVideo(Video $video)
+    {
+        $this->videos->removeElement($video);
     }
 }

@@ -1,47 +1,70 @@
 {% extends 'layout.html.twig' %}
 
-{% block javascripts %}
-
-{% endblock %}
-
 {% block main %}
       
-      <div class="col-md-12">
+      <div class="col-sm-12">
         {{ form_start(trickForm) }}
           
       </div>
 
-          <div class="col-md-12 text-center">
+          <div class="col-sm-12 text-center">
             <h1> {{ form_widget(trickForm.name) }} </h1>
           </div>
-          <!--Grid column-->
-          {% for image in trick.images %}
-            <div class="col-md-3">
-              <img src={{ asset('img/'~image.url) }} alt={{ image.alt }}>
-            </div>
-          {% endfor %}
-
-          {% for video in trick.videos %}
-            <div class="col-md-3">
-              <iframe src={{ video.iframeUrl }}>
-            </div>
-          {% endfor %}
           
-          <div class="col-md-6">
+              
+              <div id="images" class="col-sm-12" data-prototype="{{ form_widget(trickForm.images.vars.prototype)|e('html_attr') }}">
+              {% for image in trickForm.images %}
+                <!--Grid column-->
+            <div class="panel-images">
+                  <img src={{ asset('img/'~image.vars.value.url) }} alt={{ image.vars.value.alt }} width="50px" height="50px">
+                </div>
+                <div class="col-sm-12">
+                  {{ form_label(image.file) }}
+                  {{ form_errors(image.file) }}
+                  {{ form_widget(image.file) }}
+                </div>
+                <div class="panel-footer">
+                    
+                  </div>
+              {% endfor %}
+              </div>
+
+              
+
+          
+              <div id="videos" class="videos" data-prototype="{{ form_widget(trickForm.videos.vars.prototype)|e('html_attr') }}">
+              {% for video in trickForm.videos %}
+                  <div class="panel-videos panel-warning">
+                  <div class="panel-heading">
+                    <iframe src="{{ video.vars.value.iframeUrl }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen class="img-fluid"></iframe>
+                  </div>
+                  <div class="panel-body">
+                    {{ form_row(video) }}
+
+                    </div>
+                  </div>
+                  <div class="panel-footer">
+                    
+                  </div>
+              {% endfor %}
+              </div>
+          
+          
+          <div class="col-sm-12">
             <h4> Publié le {{ trick.publishDate|date("d/m/Y") }} par {{ trick.author.username }}. Figure appartenant au groupe {{ trick.trickGroup.name }}. </h4>
           </div>
 
           {% if trick.editDate is not empty %}
-          <div class="col-md-6">
+          <div class="col-sm-12">
             <h4> Dernière modification effectuée le {{ trick.editDate|date("d/m/Y") }}. </h4>
           </div>
           {% endif %}
 
-          <div class="col-md-12">
+          <div class="col-sm-12">
             {{ form_widget(trickForm.description) }}
           </div>
 
-          <div class="col-md-12">
+          <div class="col-sm-12">
             <select class="mdb-select">
               <option value="" disabled selected>{{ trick.trickGroup.name }}</option>
               {% for group in trickGroups %}
@@ -50,9 +73,8 @@
             </select>
           </div>
 
-          <div class="col-md-12">
-            <button type="submit">Valider</button>
+          
             {{ form_end(trickForm) }}
-          </div>
+         
   
 {% endblock %}
