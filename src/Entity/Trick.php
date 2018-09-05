@@ -94,6 +94,7 @@ class Trick
         $this->comments = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->publishDate = new \Datetime();
     }
 
     public function getId()

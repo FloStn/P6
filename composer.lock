@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e6790d79c479a2758ca4868371043a8",
+    "content-hash": "aa3660a5837d699adc67120795cd9434",
     "packages": [
         {
             "name": "composer/semver",
@@ -111,6 +111,34 @@
                 "performance"
             ],
             "time": "2018-08-16T10:54:23+00:00"
+        },
+        {
+            "name": "creativetimofficial/argon-design-system",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/creativetimofficial/argon-design-system.git",
+                "reference": "04ffdfb9b5a615e4368f27302fd7e54bbcb84fa3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/creativetimofficial/argon-design-system/zipball/04ffdfb9b5a615e4368f27302fd7e54bbcb84fa3",
+                "reference": "04ffdfb9b5a615e4368f27302fd7e54bbcb84fa3",
+                "shasum": ""
+            },
+            "type": "project",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Creative Tim",
+                    "email": "support@creative-tim.com"
+                }
+            ],
+            "description": "A beautiful Design System for Bootstrap 4. It's Free and Open Source.",
+            "time": "2018-08-21T11:15:13+00:00"
         },
         {
             "name": "doctrine/annotations",

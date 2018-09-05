@@ -5,6 +5,9 @@
     "composer/xdebug-handler": {
         "version": "1.2.0"
     },
+    "creativetimofficial/argon-design-system": {
+        "version": "v1.0.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

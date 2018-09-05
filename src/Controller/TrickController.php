@@ -137,20 +137,30 @@ class TrickController extends Controller
      * 
      * @Security("is_granted('ROLE_USER')")
     */
-    public function add(Request $request, TrickRepository $trickRepository, EntityManagerInterface $em)
+    public function add(Request $request, TrickRepository $trickRepository, TrickGroupRepository $trickGroupRepository, EntityManagerInterface $em)
     {
         $trick = new Trick();
+        $trickGroups = $trickGroupRepository->findAll();
         $trickForm = $this->createForm(TrickType::class, $trick);
-
+        
         $trickForm->handleRequest($request);
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            $em->persist($trick);
+            $user = $this->getUser();
             $slug = $trick->newSlug($trick->getName());
-            //$user = ;
-            $date = new \Datetime();
+            
+            $trick->setAuthor($user);
             $trick->setSlug($slug);
-            //$trick->setUser($user);
-            $trick->setPublishDate($date);
+            
+
+            $em->persist($trick);
+            $em->flush($trick);
+            return $this->redirectToRoute('tricks_index');
         }
+
+        return $this->render('trick/add.html.twig', array(
+            'trick' => $trick,
+            'trickGroups' => $trickGroups,
+            'trickForm' => $trickForm->createView()
+        ));
     }
 }
