@@ -11,11 +11,12 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use App\Form\ImageType;
-use App\Form\ForwardImageType;
+use App\Form\ImageForwardType;
 use App\Form\VideoType;
 use App\Entity\TrickGroup;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\File;
 
 class TrickType extends AbstractType
 {
@@ -30,11 +31,12 @@ class TrickType extends AbstractType
             ))
             ->add('description', TextareaType::class, array(
                 'attr' => array(
-                    'id' => 'textarea',
+                    'class' => 'form-control form-control-alternative',
+                    'rows' => '6',
                     'placeholder' => 'Description de la figure')
             ))
-            ->add('image_forward', ForwardImageType::class, array(
-                'required' => false
+            ->add('imageForward', ImageForwardType::class, array(
+                'required' => false,
             ))
             ->add('images', CollectionType::class, array(
                 'entry_type' => ImageType::class,

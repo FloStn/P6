@@ -74,7 +74,7 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", cascade="all", orphanRemoval=true)
      */
     private $images;
 
@@ -84,8 +84,7 @@ class Trick
     private $videos;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Image")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\ImageForward", mappedBy="trick", cascade={"persist", "remove"})
      */
     private $imageForward;
 
@@ -227,16 +226,18 @@ class Trick
 
     public function addImage(Image $image)
     {
-        $this->$images[] = $images;
+        $this->images[] = $image;
+        // setting the current user to the $exp,
+        // adapt this to whatever you are trying to achieve
         $image->setTrick($this);
-
         return $this;
     }
 
     public function removeImage(Image $image)
     {
-        $this->image->removeElement($image);
+        $this->images->removeElement($image);
     }
+
 
     /**
      * @return Collection|Video[]
@@ -244,18 +245,6 @@ class Trick
     public function getVideos(): Collection
     {
         return $this->videos;
-    }
-
-    public function getImageForward(): ?Image
-    {
-        return $this->imageForward;
-    }
-
-    public function setImageForward(?Image $imageForward): self
-    {
-        $this->imageForward = $imageForward;
-
-        return $this;
     }
 
     public function addVideo(Video $video)
@@ -270,5 +259,22 @@ class Trick
     public function removeVideo(Video $video)
     {
         $this->videos->removeElement($video);
+    }
+
+    public function getImageForward(): ?ImageForward
+    {
+        return $this->imageForward;
+    }
+
+    public function setImageForward(ImageForward $imageForward): self
+    {
+        $this->imageForward = $imageForward;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $imageForward->getTrick()) {
+            $imageForward->setTrick($this);
+        }
+
+        return $this;
     }
 }

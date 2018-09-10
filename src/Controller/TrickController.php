@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Entity\TrickGroup;
-use Symfony\Component\HttpFoundation\Request;
+use App\Entity\ImageForward;
 use App\Form\TrickType;
 use App\Form\VideoType;
 use App\Repository\TrickRepository;
@@ -18,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Handler\Form\TrickFormHandler;
+
 
 class TrickController extends Controller
 {
@@ -97,32 +100,22 @@ class TrickController extends Controller
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $trickGroups = $trickGroupRepository->findAll();
 
-        // save the records that are in the database first to compare them with the new one the user sent
-        // make sure this line comes before the $form->handleRequest();
-        $orignalExp = new ArrayCollection();
-        foreach ($trick->getVideos() as $video) {
-            $orignalExp->add($video);
-        }
-
         $trickForm = $this->createForm(TrickType::class, $trick)->handleRequest($request);
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            // get rid of the ones that the user got rid of in the interface (DOM)
-            foreach ($orignalExp as $video) {
-                // check if the exp is in the $user->getExp()
-//                dump($user->getExp()->contains($exp));
-                if ($trick->getVideos()->contains($video) === false) {
-                    $em->remove($video);
-                }
-            }
+            //$file = $trick->getImageForward();
+            $file = $trickForm->get('imageForward')->getData();
+            $fileName = md5(uniqid());
+            //var_dump($file);
+            $file->move($this->getParameter('upload_directory'), $fileName);
+            $upload->setName($fileName);
+            
             $em->persist($trick);
             $em->flush();
 
-        
             return $this->redirectToRoute('trick_edit', array('trick' => $trick, 'slug' => $slug));
         }
         
-
         return $this->render('trick/edit.html.twig', array(
             'trick' => $trick,
             'trickGroups' => $trickGroups,
@@ -134,8 +127,7 @@ class TrickController extends Controller
      * @Route("/add", methods={"GET", "POST"}, name="trick_add")
      * 
      * @param Request $request
-     * 
-     * @Security("is_granted('ROLE_USER')")
+     *
     */
     public function add(Request $request, TrickRepository $trickRepository, TrickGroupRepository $trickGroupRepository, EntityManagerInterface $em)
     {

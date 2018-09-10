@@ -20,12 +20,7 @@ class Image
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $alt;
-
-    /**
-     * @ORM\Column(type="string", length=150)
-     */
-    private $url;
+    private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="images")
@@ -41,26 +36,14 @@ class Image
         return $this->id;
     }
 
-    public function getAlt(): ?string
+    public function getName(): ?string
     {
-        return $this->alt;
+        return $this->name;
     }
 
-    public function setAlt(string $alt): self
+    public function setName(string $name): self
     {
-        $this->alt = $alt;
-
-        return $this;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
+        $this->name = $name;
 
         return $this;
     }
