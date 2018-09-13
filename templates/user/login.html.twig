@@ -36,10 +36,10 @@
                   <button class="btn btn-primary btn-block btn-lg"type="submit">Connexion</button>
                </div>
                <div class="col-md-4 col-lg-8 center p-2">
-                  Pas encore de compte ? <a href="#">En créer un !</a>
+                  Pas encore de compte ? <a href="{{ path('user_register') }}">En créer un !</a>
                </div>
                <div class="col-md-4 col-lg-5 center p-2">
-                  <a href="#">Mot de passe oublié ?</a>
+                  <a href="{{ path('user_forgot_password') }}">Mot de passe oublié ?</a>
                </div>
             </form>
          </div>
