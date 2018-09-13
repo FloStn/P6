@@ -1,0 +1,85 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets %}
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!-- Argon CSS -->
+  <link type="text/css" href="{{ asset('argon-material-design/css/argon.css?v=1.0.1') }}" rel="stylesheet">
+
+  <link type="text/css" href="{{ asset('snowtricks/css/style.css') }}" rel="stylesheet">
+  {% endblock %}
+
+{% block main %}
+  {{ form_start(trickForm) }}  
+  <main class="profile-page">
+    <section class="section-profile-cover section-shaped my-0 background">
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="card card-profile shadow mt--300">
+          <div class="mx-auto">
+            <h1>Créer une figure</h1>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-3 mx-auto p-3">
+              <h3>Nom</h3>
+              {{ form_widget(trickForm.name) }}
+            </div>
+            <div class="form-group col-md-3 mx-auto p-3">
+              <h3>Groupe</h3>
+              {{ form_widget(trickForm.trickGroup) }}
+            </div>
+          </div>
+          <div class="wrapper">
+            <div class="divider div-transparent"></div>
+          </div>
+          <div class="form-group col-md-8 mx-auto">
+            <h3>Description</h3>
+            {{ form_widget(trickForm.description) }}
+          </div>
+          <div class="wrapper">
+            <div class="divider div-transparent"></div>
+          </div>
+          <div class="form-group col-md-3 mx-auto">
+            <h3>Image principale</h3>
+            {{ form_widget(trickForm.image_forward) }}
+          </div>
+          <div class="wrapper">
+            <div class="divider div-transparent"></div>
+          </div>
+          <div id="images" class="form-group col-md-3 mx-auto" data-prototype="{{ form_widget(trickForm.images.vars.prototype)|e('html_attr') }}">
+            <div class="panel-images">
+              <h3>Images</h3>
+              {{ form_widget(trickForm.images) }}
+            </div>
+          </div>
+          <div class="wrapper">
+            <div class="divider div-transparent"></div>
+          </div>
+          <div id="videos" class="form-group col-md-3 mx-auto" data-prototype="{{ form_widget(trickForm.images.vars.prototype)|e('html_attr') }}">
+            <div class="panel-videos">
+              <h3>Videos</h3>
+              {{ form_widget(trickForm.videos) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+{% block javascript %}
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{{ asset('argon-material-design/vendor/headroom/headroom.min.js') }}"></script>
+  <!-- Argon JS -->
+  <script type="text/javascript" src="{{ asset('argon-material-design/js/argon.js?v=1.0.1') }}"></script>
+  <!-- Collection -->
+  <script type="text/javascript" src="{{ asset('snowtricks/js/collection.js') }}"></script>
+  <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=bht4coasy5p952y66fasgje1kf9sahtyjwzeo362gfdwj6rw"></script>
+  <script>tinymce.init({ selector:'textarea' });</script>
+{% endblock %}
+  
+{% endblock %}
