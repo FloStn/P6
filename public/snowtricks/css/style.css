@@ -39,7 +39,7 @@ body,
   @import url('https://fonts.googleapis.com/css?family=Damion|Muli:400,600');
   body{
     font-family: 'Muli', sans-serif;
-    background: url("https://www.toptal.com/designers/subtlepatterns/patterns/geometry2.png");
+    /*background: url("https://www.toptal.com/designers/subtlepatterns/patterns/geometry2.png");*/
   }
   h2 {
       font-family: 'Damion', cursive;
@@ -55,7 +55,6 @@ body,
       width: 100%;
       left: 0;
       top: 22px;
-      background: #4caf50;
       height: 1px;
   }
   h2 i {
@@ -417,3 +416,92 @@ figure.slider figure figcaption {
   color: #fff; width: 100%;
   font-size: 2rem; padding: .6rem; 
 }
+
+
+
+.user-page .card-user
+{
+    margin-top: -300px;
+}
+
+.container-user
+{
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto; 
+    padding-right: 15px;
+    padding-left: 15px;
+}
+@media (min-width: 576px)
+{
+    .container-user
+    {
+        max-width: 540px;
+    }
+}
+@media (min-width: 768px)
+{
+    .container-user
+    {
+        max-width: 720px;
+    }
+}
+@media (min-width: 992px)
+{
+    .container-user
+    {
+        max-width: 960px;
+    }
+}
+@media (min-width: 1200px)
+{
+    .container-user
+    {
+        max-width: 500px;
+    }
+}
+
+
+
+
+
+.section-user-cover
+{
+    height: 500px;
+    padding-bottom: 500px;
+    background-position: center center; 
+    background-size: cover;
+}
+
+@media (max-width: 991.98px)
+{
+    .section-user-cover
+    {
+        height: 50px;
+    }
+}
+
+
+.signup-form {
+  width: 390px;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+
+
+  .signup-form form {		
+  border-radius: 1px;
+    margin-bottom: 15px;
+      background: #fff;
+  border: 1px solid #f3f3f3;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+  }
+.signup-form .form-group {
+  margin-bottom: 20px;
+}
+
+
+
+
+
