@@ -38,6 +38,9 @@
           <div class="col-md-4 col-lg-6 center p-2">
             {{ form_widget(user_form.save, {'label': 'Créer mon compte !'}) }}
           </div>
+          <div class="col-md-4 col-lg-6 center p-2">
+            Déjà un compte ? <a href="{{ path('security_login') }}">Connectez-vous !</a>
+          </div>
         </div>
       </div>
       {{ form_end(user_form) }}
