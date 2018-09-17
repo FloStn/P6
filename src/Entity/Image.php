@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
@@ -28,20 +31,27 @@ class Image
      */
     private $trick;
 
-    
+    /**
+     * @Assert\File(mimeTypes={ "image/jpg" })
+     */
     private $file;
+
+    public function __construct()
+    {
+        $file = new ArrayCollection();
+    }
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName($name)
     {
         $this->name = $name;
 
