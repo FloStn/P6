@@ -1,79 +1,75 @@
 {% extends 'layout.html.twig' %}
-
-
-{% block background %}
-  <!-- Full Page Intro -->
-  <div class="view  jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('../../img/snowboard-227541_1920.jpg'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
-    <!-- Mask & flexbox options-->
-    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
-      <!-- Content -->
-      <div class="container">
-        <!--Grid row-->
-        <div class="row wow fadeIn">
-          <!--Grid column-->
-          <div class="col-md-12 text-center">
-            <h1 class="white-text display-4 mb-0 wow fadeInUp">Apprenez en toute simplicité</h1>
-            <h5 class="white-text wow fadeInUp" data-wow-delay="0.5s">Consultez les fiches techniques et échangez avec la communauté !</h5>
-          </div>
-          <!--Grid column-->
-        </div>
-        <!--Grid row-->
-      </div>
-      <!-- Content -->
-    </div>
-    <!-- Mask & flexbox options-->
-  </div>
-  <!-- Full Page Intro -->
+{% block stylesheets %}
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<!-- Argon CSS -->
+<link type="text/css" href="{{ asset('argon-material-design/css/argon.css?v=1.0.1') }}" rel="stylesheet">
+<link type="text/css" href="{{ asset('snowtricks/css/style.css') }}" rel="stylesheet">
+<style>
+    .bg { 
+    /* The image used */
+    background: url("{{ asset('snowtricks/img/1.jpg') }}") no-repeat center center fixed;
+    /* Full height */
+    height: 100%; 
+    /* Center and scale the image nicely */
+    background-size: cover;
+    }
+</style>
 {% endblock %}
-
 {% block main %}
-      <!--Section: Main info-->
-      <section class="mt-5">
-
-        <!--Grid row-->
-        <div id="tricks" class="row">
-
-{% for trick in tricks %}
-
-<div class="col-lg-3 col-md-12 mb-3">
-
-<div class="card">
-
-  <!-- Card image -->
-  <div class="view overlay">
-    <img class="card-img-top" src={{ '../../img/' ~ trick.getImages['0'].url }} alt={{ trick.getImages['0'].alt }}></img>
-    <a href="http://www.openclassrooms.com">
-      <div class="mask rgba-white-slight"></div>
-    </a>
-  </div>
-
-  <!-- Card content -->
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-6 text-center">
-        <!-- Title -->
-        <h4 class="card-title" style="font-size: 1.1rem;">{{ trick.name }}</h4>
-      </div>
-      <div class="mx-auto col-md-6 text-right text-sm-right">
-        <a class="fas fa-pen"></a>
-        <a class="fas fa-trash-alt text-danger" data-toggle="modal" data-target="#modalConfirmDelete"></a>
-      </div>
+<section class="bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mt-5 mx-auto text-center" style="padding-top: 40%">
+                <h1>Mon titre !</h1>
+            </div>
+        </div>
     </div>
-
-  </div>
-</div>
-</div>
-
-{% endfor %}
-
-      {{ include('modals.html.twig') }}
-
+</section>
+<section class="mt-5">
+    <div class="container-fluid">
+        <div id="tricks" class="row">
+            {% for trick in tricks %}
+            <div class="col-lg-2 col-md-3 mb-3 mx-auto">
+                <div class="card">
+                    <!-- Card image -->
+                    {% if trick.images is empty %}
+                    <img class="card-img-top" src={{ asset('snowtricks/img/background1.jpg') }} alt="trick"></img>
+                    {% else %}
+                    <img class="card-img-top" src={{ asset('uploads/'~trick.images|first.name) }} alt="trick"></img>
+                    {% endif %}
+                    <!-- Card content -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                <!-- Title -->
+                                <h4 class="" style="font-size: 1.1rem;">{{ trick.name }}</h4>
+                            </div>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <div class="mx-auto col-md-6 text-right text-sm-right">
+                                <a class="fas fa-pen"></a>
+                                <a class="fas fa-trash-alt text-danger" data-toggle="modal" data-target="#modal_trick_delete_{{ trick.id }}"></a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        <!--Grid row-->
-
-        <div class="d-flex justify-content-center">
-          <a class="btn btn-primary" href= {{'../../index.php/home/' ~ show ~ '#tricks'}}>Voir plus de figures</a>
-        </div>
-      </section>
-      <!--Section: Main info-->
+    </div>
+</section>
+{% endblock %}
+{% block javascript %}
+<script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ asset('argon-material-design/vendor/headroom/headroom.min.js') }}"></script>
+<!-- Argon JS -->
+<script type="text/javascript" src="{{ asset('argon-material-design/js/argon.js?v=1.0.1') }}"></script>
 {% endblock %}

@@ -53,7 +53,7 @@ class TrickController extends Controller
 
         return $this->render('tricks.html.twig', array(
             'tricks' => $tricks,
-            'page' => $page
+            'showMore' => $showMore
         ));
     }
 
