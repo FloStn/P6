@@ -27,7 +27,7 @@
               <div id="captioned-gallery">
 	              <figure class="slider">
 		              <figure>
-			              <img src={{ asset('snowtricks/img/') }} alt="image_principale">
+			              <img src={{ asset('uploads/'~trick.imageForward.fileName) }} alt="image_principale">
                     <figcaption>
                       <div class="col-md-3 mx-auto">
 			                  {{ form_widget(trickForm.name) }}
