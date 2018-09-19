@@ -184,4 +184,21 @@ class TrickController extends Controller
             'trickForm' => $trickForm->createView()
         ));
     }
+
+    /**
+     * @Route("/delete/{slug}", methods={"GET", "POST"}, name="trick_delete")
+     * 
+     * @param Request $request
+     * 
+     */
+    public function delete(Request $request, TrickRepository $trickRepository, EntityManagerInterface $em, $slug)
+    {
+        $slug = $request->attributes->get('slug');
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+
+        $em->remove($trick);
+        $em->flush();
+
+        return $this->redirectToRoute('tricks_index');
+    }
 }

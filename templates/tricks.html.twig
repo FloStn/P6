@@ -22,34 +22,34 @@
 <section class="bg">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 mt-5 mx-auto text-center" style="padding-top: 40%">
-                <h1>Mon titre !</h1>
+            <div class="col-lg-12 col-sm-6 mx-auto text-center" style="padding-top: 50%">
+                <h1 class="display-4" style="color: white;">Site communautaire pour Snowboarders</h1>
             </div>
         </div>
     </div>
 </section>
 <section class="mt-5">
-    <div class="container-fluid">
+    <div class="container">
         <div id="tricks" class="row">
             {% for trick in tricks %}
-            <div class="col-lg-2 col-md-3 mb-3 mx-auto">
+            <div class="col-lg-3 col-md-2 mb-3">
                 <div class="card">
                     <!-- Card image -->
                     {% if trick.images is empty %}
-                    <img class="card-img-top" src={{ asset('snowtricks/img/background1.jpg') }} alt="trick"></img>
+                    <img class="card-img-top" src={{ asset('snowtricks/img/background1.jpg') }} height="150px" width="200px" alt="trick"></img>
                     {% else %}
-                    <img class="card-img-top" src={{ asset('uploads/'~trick.images|first.name) }} alt="trick"></img>
+                    <img class="card-img-top" src={{ asset('uploads/'~trick.images|first.name) }} height="150px" width="200px" alt="trick"></img>
                     {% endif %}
                     <!-- Card content -->
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 text-center">
                                 <!-- Title -->
-                                <h4 class="" style="font-size: 1.1rem;">{{ trick.name }}</h4>
+                                <a class="h6" href={{ path('trick_details', {'slug': trick.slug}) }}>{{ trick.name }}</a>
                             </div>
                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <div class="mx-auto col-md-6 text-right text-sm-right">
-                                <a class="fas fa-pen"></a>
+                                <a class="fas fa-pen" href={{ path('trick_edit', {'slug': trick.slug}) }}></a>
                                 <a class="fas fa-trash-alt text-danger" data-toggle="modal" data-target="#modalTrickDelete{{ trick.id }}"></a>
                             </div>
                             {% endif %}
@@ -78,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <a class="btn btn-link text-white" href={{ path('tricks_index', { 'trick': trick.slug }) }}>Oui, supprimer la figure !</a>
+                                    <a class="btn btn-link text-white" href={{ path('trick_delete', { 'slug': trick.slug }) }}>Oui, supprimer la figure !</a>
                                     <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal">Fermer</button>
                                 </div>
                             </div>
