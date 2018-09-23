@@ -49,13 +49,13 @@ class CommentRepository extends ServiceEntityRepository
     }
     */
 
-    public function getPagination($trick, $max_results)
+    public function getPagination($trick, $start, $limit)
     {
         $qb = $this->createQueryBuilder('c')
             ->select('c')
             ->andWhere('c.trick = '.$trick)
-            ->setFirstResult(0)
-            ->setMaxResults($max_results)
+            ->setFirstResult($start)
+            ->setMaxResults($limit)
             ->orderBy('c.publishDate', 'DESC');
 
         $pag = new Paginator($qb);

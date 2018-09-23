@@ -12,6 +12,7 @@ use App\Entity\TrickGroup;
 use App\Entity\ImageForward;
 use App\Form\TrickType;
 use App\Form\VideoType;
+use App\Form\CommentType;
 use App\Repository\TrickRepository;
 use App\Repository\TrickGroupRepository;
 use App\Repository\CommentRepository;
@@ -59,7 +60,7 @@ class TrickController extends Controller
 
 
     /**
-     * @Route("/details/{slug}", methods={"GET"}, name="trick_details")
+     * @Route("/details/{slug}/{page}", methods={"GET", "POST"}, name="trick_details")
      * 
      * @param Request $request
      * 
@@ -71,20 +72,42 @@ class TrickController extends Controller
      *
      * @return array
      */
-    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $em)
+    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $em, $slug, $page)
     {
-        $perPage = 1;
-        $page = $request->query->get('page_comments', 1);
-        $limit = $perPage*$page;
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+        $perPage = 3;
+        $allComments = $commentRepository->findBy(['trick' => $trick]) ;
+        $nbPages = ceil(count($allComments) / $perPage);
         
-        $trick = $trickRepository->findOneBy(['slug' => $request->attributes->get('slug')]);
-        $comments = $commentRepository->getPagination($trick->getId(), $limit);
-        //$nbPages = ceil(count($comments) / $perPage);
+        if ($page < 1 || $page > $nbPages) {
+            $page = 1;
+        }
+
+        $start = $perPage * $page - $perPage;
+        $limit = $perPage;
+        
+        $comments = $commentRepository->getPagination($trick->getId(), $start, $limit);
+        $comment = new Comment();
+        $commentForm = $this->createForm(CommentType::class, $comment)->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $user = $this->getUser();
+            
+            $comment->setTrick($trick);
+            $comment->setAuthor($user);
+
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('trick_details', array('slug' => $slug, 'page' => $page));
+        }
 
         return $this->render('trick.html.twig', array(
             'trick' => $trick,
-            'page' => $request->attributes->get('page'),
-            'comments' => $comments
+            'page' => $page,
+            'comments' => $comments,
+            'nbPages' => $nbPages,
+            'commentForm' => $commentForm->createView()
         ));
     }
 
