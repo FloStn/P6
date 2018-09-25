@@ -2,8 +2,8 @@
 var $collectionImages;
 var $collectionVideos;
 // the link which we click on to add new items
-var $addNewImage = $('<a href="#" class="btn btn-info">Ajouter une image</a>');
-var $addNewVideo = $('<a href="#" class="btn btn-info">Ajouter une vidéo</a>');
+var $addNewImage = $('<a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle px-1"></i>Ajouter une image</a>');
+var $addNewVideo = $('<a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i></a>');
 // when the page is loaded and ready
 $(document).ready(function () {
     // get the collectionHolder, initilize the var by getting the list;
@@ -114,7 +114,7 @@ function addNewFormVideo() {
  */
 function addRemoveImageButton ($panel) {
     // create remove button
-    var $removeButton = $('<a href="#" class="btn btn-danger">Supprimer l\'image</a>');
+    var $removeButton = $('<a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>');
     // appending the removebutton to the panel footer
     var $panelFooter = $('<div class="panel-images-footer"></div>').append($removeButton);
     // handle the click event of the remove button
@@ -136,7 +136,7 @@ function addRemoveImageButton ($panel) {
  */
 function addRemoveVideoButton ($panel) {
     // create remove button
-    var $removeButton = $('<a href="#" class="btn btn-danger">Supprimer la vidéo</a>');
+    var $removeButton = $('<a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>');
     // appending the removebutton to the panel footer
     var $panelFooter = $('<div class="panel-videos-footer"></div>').append($removeButton);
     // handle the click event of the remove button
