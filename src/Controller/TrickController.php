@@ -181,10 +181,9 @@ class TrickController extends Controller
      * @param Request $request
      *
     */
-    public function add(Request $request, TrickRepository $trickRepository, TrickGroupRepository $trickGroupRepository, EntityManagerInterface $em)
+    public function add(Request $request, TrickRepository $trickRepository, EntityManagerInterface $em)
     {
         $trick = new Trick();
-        $trickGroups = $trickGroupRepository->findAll();
         $trickForm = $this->createForm(TrickType::class, $trick);
         
         $trickForm->handleRequest($request);
@@ -194,7 +193,6 @@ class TrickController extends Controller
             
             $trick->setAuthor($user);
             $trick->setSlug($slug);
-            
 
             $em->persist($trick);
             $em->flush($trick);
@@ -203,7 +201,6 @@ class TrickController extends Controller
 
         return $this->render('trick/add.html.twig', array(
             'trick' => $trick,
-            'trickGroups' => $trickGroups,
             'trickForm' => $trickForm->createView()
         ));
     }
