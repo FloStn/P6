@@ -15,7 +15,7 @@ class ImageForwardType extends AbstractType
         $builder
             ->add('file', FileType::class, array(
                 'attr' => array(
-                    'class' => 'btn btn-outline-default'
+                    'class' => 'fas fa-edit'
                 ),
                 'label' => false,
                 'required' => false
@@ -26,6 +26,7 @@ class ImageForwardType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'validation_groups' => array('registration'),
             'data_class' => ImageForward::class,
         ]);
     }
