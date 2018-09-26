@@ -50,8 +50,11 @@
                     {{ form_widget(trickForm.images) }}
                 </div>
                 <div id="videos" class="form-group col-md-12" data-prototype="{{ form_widget(trickForm.videos.vars.prototype)|e('html_attr') }}">
+                  {{ form_widget(trickForm.videos) }}
                 </div>
-                {{ form_widget(trickForm.videos) }}
+                <div class="form-group col-md-3 mx-auto p-3">
+                  {{ form_widget(trickForm.save) }}
+                </div>
             </div>
         </div>
         {{ form_rest(trickForm) }}
