@@ -28,7 +28,7 @@
                     {% if trick.images is empty %}
                     <img class="card-img-top" src={{ asset('snowtricks/img/background1.jpg') }} height="150px" width="200px" alt="trick"></img>
                     {% else %}
-                    <img class="card-img-top" src={{ asset('uploads/'~trick.images|first.name) }} height="150px" width="200px" alt="trick"></img>
+                    <img class="card-img-top" src={{ asset('upload/trick/image/'~trick.images|first.name) }} height="150px" width="200px" alt="trick"></img>
                     {% endif %}
                     <!-- Card content -->
                     <div class="card-body">
