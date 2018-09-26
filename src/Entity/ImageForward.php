@@ -37,7 +37,7 @@ class ImageForward
 
     public function __construct()
     {
-        $this->name = "default.jpg";
+        $this->setFileName("default.jpg");
     }
 
     public function getId()

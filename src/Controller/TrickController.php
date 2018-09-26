@@ -193,14 +193,39 @@ class TrickController extends Controller
         
         $trickForm->handleRequest($request);
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
+            $trickData = $trickForm->getData();
             $user = $this->getUser();
-            $slug = $trick->newSlug($trick->getName());
+            $slug = $trick->newSlug($trickData->getName());
             
             $trick->setAuthor($user);
             $trick->setSlug($slug);
+            
+            $fileImageForwardData = $trickData->getImageForward()->getFile();
+            if ($fileImageForwardData !== null)
+            {
+                $fileImageForwardDataName = $this->generateUniqueFileName().'.'.$fileImageForwardData->guessExtension();
+                $fileImageForwardData->move($this->getParameter('trick_image_forward_upload_directory'), $fileImageForwardDataName);
 
+                $trick->getImageForward()->setFileName($fileImageForwardDataName);
+            }
+
+            foreach ($trickData->getImages()->getValues() as $image)
+                {
+                    $file = $image->getFile();
+                    //dump($file);
+                    //die;
+                    if ($file !== null) {
+                        $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+    
+                        $file->move($this->getParameter('trick_image_upload_directory'), $fileName);
+    
+                        $image->setName($fileName);
+                    }
+                }
+            
             $em->persist($trick);
-            $em->flush($trick);
+            $em->flush();
+
             return $this->redirectToRoute('tricks_index');
         }
 

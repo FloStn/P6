@@ -3,7 +3,7 @@ var $collectionImages;
 var $collectionVideos;
 // the link which we click on to add new items
 var $addNewImage = $('<a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle px-1"></i>Ajouter une image</a>');
-var $addNewVideo = $('<a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i></a>');
+var $addNewVideo = $('<a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle px-1"></i>Ajouter une vidéo</a>');
 // when the page is loaded and ready
 $(document).ready(function () {
     // get the collectionHolder, initilize the var by getting the list;
