@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\ImageForward;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
@@ -94,6 +95,8 @@ class Trick
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->publishDate = new \Datetime();
+        $imageForward = new ImageForward();
+        $this->setImageForward($imageForward);
     }
 
     public function getId()
@@ -123,6 +126,27 @@ class Trick
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function newSlug($name)
+    {
+        $name = preg_replace('#[^\\pL\d]+#u', '-', $name);
+        $name = trim($name, '-');
+
+        if (function_exists('iconv'))
+        {
+            $name = iconv('utf-8', 'us-ascii//TRANSLIT', $name);
+        }
+
+        $name = strtolower($name);
+        $name = preg_replace('#[^-\w]+#', '', $name);
+
+        if (empty($name))
+        {
+            return 'n-a';
+        }
+
+        return $name;
     }
 
     public function getDescription(): ?string
