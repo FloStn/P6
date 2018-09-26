@@ -26,7 +26,7 @@
                         <div id="captioned-gallery">
                             <figure class="slider">
                                 <figure>
-                                    <img src={{ asset('uploads/'~trick.imageForward.fileName) }} alt="image_principale">
+                                    <img src={{ asset('upload/trick/image-forward'~trick.imageForward.fileName) }} alt="image_forward">
                                     <figcaption>
                                         <div class="col-md-3 mx-auto">
                                             {{ trick.name }}
@@ -42,7 +42,7 @@
                     <div class="col-lg-3 panel-videos panel-warning">
                         <div class="panel-images panel-warning">
                             <div class="panel-heading">
-                                <img src={{ asset('snowtricks/img/'~image.name) }} alt={{ trick.name }} width="220px" height="auto">
+                                <img src={{ asset('upload/trick/image/'~image.name) }} alt={{ trick.name }} width="220px" height="auto">
                             </div>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                 <div class="row mx-auto">
                     {% for comment in comments %}
                     <div class="col-md-2 mt-5 text-center">
-                        <img src={{ asset('uploads/avatar/'~comment.author.avatar.url) }} alt="avatar" width="100px" height="auto">
+                        <img src={{ asset('upload/avatar/'~comment.author.avatar.url) }} alt="avatar" width="100px" height="auto">
                         <h6> {{ comment.author.username }} </h6>
                     </div>
                     <div class="col-md-10 mt-5">
@@ -96,6 +96,7 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% if comments is not empty %}
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item {% if page == 1 %}disabled{% endif %}">
@@ -117,6 +118,7 @@
                         {% endif %}
                     </ul>
                 </nav>
+                {% endif %}
             </div>
         </div>
     </section>

@@ -4,6 +4,7 @@ parameters:
     locale: 'en'
     trick_image_forward_upload_directory: '%kernel.project_dir%/public/upload/trick/image-forward'
     trick_image_upload_directory: '%kernel.project_dir%/public/upload/trick/image'
+    avatar_upload_directory: '%kernel.project_dir%/public/upload/avatar'
 
 services:
     # default configuration for services in *this* file
