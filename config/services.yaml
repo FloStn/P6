@@ -2,7 +2,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-    trick_image_forward_upload_directory: '%kernel.project_dir%/public/upload/trick/image forward'
+    trick_image_forward_upload_directory: '%kernel.project_dir%/public/upload/trick/image-forward'
     trick_image_upload_directory: '%kernel.project_dir%/public/upload/trick/image'
 
 services:
