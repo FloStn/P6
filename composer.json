@@ -6,7 +6,6 @@
         "ext-iconv": "*",
         "creativetimofficial/argon-design-system": "^1.0",
         "friendsofphp/php-cs-fixer": "^2.12",
-        "kms/froala-editor-bundle": "dev-master",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "^4.1",
         "symfony/console": "^4.1",
