@@ -26,10 +26,10 @@
             {% endif %}
             <form action="{{ path('security_login') }}" method="post">
                <div class="col-md-4 col-lg-6 center p-2">
-                  <input class="form-control form-control-alternative" type="text" id="username" name="_username" value="{{ last_username }}" />
+                  <input class="form-control form-control-alternative" type="text" id="username" name="_username" placeholder="Nom d'utilisateur">
                </div>
                <div class="col-md-4 col-lg-6 center p-2">
-                  <input class="form-control form-control-alternative" type="password" id="password" name="_password" />
+                  <input class="form-control form-control-alternative" type="password" id="password" name="_password" placeholder="Mot de passe">
                   <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                </div>
                <div class="col-md-4 col-lg-6 center p-2">
