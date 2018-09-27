@@ -75,7 +75,7 @@ class UserController extends Controller
     public function forgotPassword(Request $request, EntityManagerInterface $em, Email $email, UserRepository $userRepository, TokenGen $tokenGen)
     {
         $user = new User();
-        $userForm = $this->createForm(UserType::class, $user);
+        $userForm = $this->createForm(ForgotPasswordType::class, $user);
 
         $userForm->handleRequest($request);
         if ($userForm->isSubmitted() && $userForm->isValid())
@@ -95,7 +95,7 @@ class UserController extends Controller
         }
         
         return $this->render('user/forgot_password.html.twig', array(
-            'user_form' => $userForm->createView()
+            'userForm' => $userForm->createView()
         ));
     }
 
