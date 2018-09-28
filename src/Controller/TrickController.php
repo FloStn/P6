@@ -86,7 +86,7 @@ class TrickController extends Controller
 
         $start = $perPage * $page - $perPage;
         $limit = $perPage;*/
-        $allComments = $commentRepository->findBy(['trick' => $trick]) ;
+        $allComments = $commentRepository->findBy(['trick' => $trick]);
         $pagination->init($page, $allComments);
         $comments = $commentRepository->getPagination($trick->getId(), $pagination->getStart(), $pagination->getLimit());
         $comment = new Comment();

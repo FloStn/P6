@@ -100,25 +100,40 @@
                     {% endfor %}
                 </div>
                 {% if comments is not empty %}
+                {% if page < 1 or page > nbPages %}
+                {% set page = 1 %}
+                {% endif %}
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                        {% if page <= 1 %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">
+                        {% else %}
+                        <li class="page-item">
                             <a class="page-link" href="{{ path('trick_details', {'slug': trick.slug, 'page': page - 1}) }}" tabindex="-1">
+                        {% endif %}
                             <i class="fa fa-angle-left"></i>
                             <span class="sr-only">Previous</span>
                             </a>
                         </li>
                         {% for pg in 1..nbPages %}
-                        <li class="page-item {% if pg == page %}active{% endif %}"><a class="page-link" href={{ path('trick_details', {'slug': trick.slug, 'page': pg}) }}>{{ pg }}</a></li>
+                        {% if pg == page %}
+                        <li class="page-item active"><a class="page-link" href="#">{{ pg }}</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href={{ path('trick_details', {'slug': trick.slug, 'page': pg}) }}>{{ pg }}</a></li>
+                        {% endif %}
                         {% endfor %}
-                        {% if page <= nbPages and page >= 1 %}
-                        <li class="page-item {% if page == nbPages %}disabled{% endif %} ">
+                        {% if page < nbPages %}
+                        <li class="page-item">
                             <a class="page-link" href={{ path('trick_details', {'slug': trick.slug, 'page': page + 1}) }}>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">
+                        {% endif %}
                             <i class="fa fa-angle-right"></i>
                             <span class="sr-only">Next</span>
                             </a>
                         </li>
-                        {% endif %}
                     </ul>
                 </nav>
                 {% endif %}
