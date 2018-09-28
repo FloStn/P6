@@ -22,6 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Handler\Form\TrickFormHandler;
 use Symfony\Component\Filesystem\Filesystem;
+use App\Service\Pagination;
 
 
 class TrickController extends Controller
@@ -72,10 +73,10 @@ class TrickController extends Controller
      *
      * @return array
      */
-    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $em, $slug, $page)
+    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $em, $slug, $page, Pagination $pagination)
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
-        $perPage = 3;
+        /*$perPage = 3;
         $allComments = $commentRepository->findBy(['trick' => $trick]) ;
         $nbPages = ceil(count($allComments) / $perPage);
         
@@ -84,9 +85,10 @@ class TrickController extends Controller
         }
 
         $start = $perPage * $page - $perPage;
-        $limit = $perPage;
-        
-        $comments = $commentRepository->getPagination($trick->getId(), $start, $limit);
+        $limit = $perPage;*/
+        $allComments = $commentRepository->findBy(['trick' => $trick]);
+        $pagination->init($page, $allComments);
+        $comments = $commentRepository->getPagination($trick->getId(), $pagination->getStart(), $pagination->getLimit());
         $comment = new Comment();
         $commentForm = $this->createForm(CommentType::class, $comment)->handleRequest($request);
 
@@ -106,7 +108,7 @@ class TrickController extends Controller
             'trick' => $trick,
             'page' => $page,
             'comments' => $comments,
-            'nbPages' => $nbPages,
+            'nbPages' => $pagination->getNbPages(),
             'commentForm' => $commentForm->createView()
         ));
     }
