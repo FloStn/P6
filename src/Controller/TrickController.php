@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use App\Handler\Form\TrickFormHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use App\Service\Pagination;
+use App\Service\FileUploader;
 
 
 class TrickController extends Controller
@@ -76,16 +77,6 @@ class TrickController extends Controller
     public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $em, $slug, $page, Pagination $pagination)
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
-        /*$perPage = 3;
-        $allComments = $commentRepository->findBy(['trick' => $trick]) ;
-        $nbPages = ceil(count($allComments) / $perPage);
-        
-        if ($page < 1 || $page > $nbPages) {
-            $page = 1;
-        }
-
-        $start = $perPage * $page - $perPage;
-        $limit = $perPage;*/
         $allComments = $commentRepository->findBy(['trick' => $trick]);
         $pagination->init($page, $allComments);
         $comments = $commentRepository->getPagination($trick->getId(), $pagination->getStart(), $pagination->getLimit());
@@ -120,7 +111,7 @@ class TrickController extends Controller
      * 
      
      */
-    public function edit(Request $request, TrickRepository $trickRepository, TrickGroupRepository $trickGroupRepository, EntityManagerInterface $em, $slug)
+    public function edit(Request $request, TrickRepository $trickRepository, TrickGroupRepository $trickGroupRepository, EntityManagerInterface $em, $slug, FileUploader $fileUploader)
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $trickGroups = $trickGroupRepository->findAll();
@@ -129,34 +120,20 @@ class TrickController extends Controller
     
             if ($trickForm->isSubmitted() && $trickForm->isValid()) {
 
-                $trickData = $trickForm->getData();
-                //dump($trickData);
-                //die;
-                $file = $trickData->getImageForward()->getFile();
+                $file = $trick->getImageForward()->getFile();
                 
                 if ($file !== null) {
-                    
-                    $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-    
-                    $file->move($this->getParameter('upload_directory'), $fileName);
-    
-                    $imageForward = $trick->getImageForward();
-
-                    $fileSystem = new Filesystem();
-                    $fileSystem->remove($this->getParameter('upload_directory').'/'.$imageForward->getFileName());
-                
-                    $imageForward->setFileName($fileName);
+                    $fileUploader->setTargetDirectory($this->getParameter('trick_image_forward_upload_directory'));
+                    $fileName = $fileUploader->upload($file);
+                    $trick->getImageForward()->setFileName($fileName);
                 }
 
-                foreach ($trickData->getImages()->getValues() as $image)
+                foreach ($trick->getImages()->getValues() as $image)
                 {
                     $file = $image->getFile();
-                    //dump($image->getFile());
                     if ($file !== null) {
-                        $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-    
-                        $file->move($this->getParameter('upload_directory'), $fileName);
-    
+                        $fileUploader->setTargetDirectory($this->getParameter('trick_image_upload_directory'));
+                        $fileName = $fileUploader->upload($file);
                         $image->setName($fileName);
                     }
                 }
@@ -164,8 +141,8 @@ class TrickController extends Controller
                 $em->persist($trick);
                 $em->flush();
 
-            return $this->redirectToRoute('trick_edit', array('trick' => $trick, 'slug' => $slug));
-        }
+                return $this->redirectToRoute('trick_edit', array('trick' => $trick, 'slug' => $slug));
+            }
         
         return $this->render('trick/edit.html.twig', array(
             'trick' => $trick,
@@ -175,20 +152,12 @@ class TrickController extends Controller
     }
 
     /**
-     * @return string
-     */
-    private function generateUniqueFileName()
-    {
-        return md5(uniqid());
-    }
-
-    /**
      * @Route("/add", methods={"GET", "POST"}, name="trick_add")
      * 
      * @param Request $request
      *
     */
-    public function add(Request $request, TrickRepository $trickRepository, EntityManagerInterface $em)
+    public function add(Request $request, TrickRepository $trickRepository, EntityManagerInterface $em, FileUploader $fileUploader)
     {
         $trick = new Trick();
         $trickForm = $this->createForm(TrickType::class, $trick);
@@ -201,26 +170,21 @@ class TrickController extends Controller
             
             $trick->setAuthor($user);
             $trick->setSlug($slug);
-            
-            $fileImageForwardData = $trickData->getImageForward()->getFile();
-            if ($fileImageForwardData !== null)
-            {
-                $fileImageForwardDataName = $this->generateUniqueFileName().'.'.$fileImageForwardData->guessExtension();
-                $fileImageForwardData->move($this->getParameter('trick_image_forward_upload_directory'), $fileImageForwardDataName);
 
-                $trick->getImageForward()->setFileName($fileImageForwardDataName);
-            }
+            $file = $trick->getImageForward()->getFile();
+                
+                if ($file !== null) {
+                    $fileUploader->setTargetDirectory($this->getParameter('trick_image_forward_upload_directory'));
+                    $fileName = $fileUploader->upload($file);
+                    $trick->getImageForward()->setFileName($fileName);
+                }
 
-            foreach ($trickData->getImages()->getValues() as $image)
+                foreach ($trick->getImages()->getValues() as $image)
                 {
                     $file = $image->getFile();
-                    //dump($file);
-                    //die;
                     if ($file !== null) {
-                        $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-    
-                        $file->move($this->getParameter('trick_image_upload_directory'), $fileName);
-    
+                        $fileUploader->setTargetDirectory($this->getParameter('trick_image_upload_directory'));
+                        $fileName = $fileUploader->upload($file);
                         $image->setName($fileName);
                     }
                 }
