@@ -74,24 +74,19 @@ class TrickController extends Controller
      *
      * @return array
      */
-    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $em, $slug, $page, Pagination $pagination)
+    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, $slug, $page, Pagination $pagination, TrickFormHandler $trickFormHandler)
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $allComments = $commentRepository->findBy(['trick' => $trick]);
         $pagination->init($page, $allComments);
         $comments = $commentRepository->getPagination($trick->getId(), $pagination->getStart(), $pagination->getLimit());
+
         $comment = new Comment();
+        $user = $this->getUser();
         $commentForm = $this->createForm(CommentType::class, $comment)->handleRequest($request);
 
-        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $user = $this->getUser();
-            
-            $comment->setTrick($trick);
-            $comment->setAuthor($user);
-
-            $em->persist($comment);
-            $em->flush();
-
+        if ($trickFormHandler->detailsHandle($trick, $comment, $commentForm, $user))
+        {
             return $this->redirectToRoute('trick_details', array('slug' => $slug, 'page' => $page));
         }
 
@@ -111,42 +106,18 @@ class TrickController extends Controller
      * 
      
      */
-    public function edit(Request $request, TrickRepository $trickRepository, TrickGroupRepository $trickGroupRepository, EntityManagerInterface $em, $slug, FileUploader $fileUploader)
+    public function edit(Request $request, TrickRepository $trickRepository, $slug, TrickFormHandler $trickFormHandler)
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
-        $trickGroups = $trickGroupRepository->findAll();
-
         $trickForm = $this->createForm(TrickType::class, $trick)->handleRequest($request);
-    
-            if ($trickForm->isSubmitted() && $trickForm->isValid()) {
 
-                $file = $trick->getImageForward()->getFile();
-                
-                if ($file !== null) {
-                    $fileUploader->setTargetDirectory($this->getParameter('trick_image_forward_upload_directory'));
-                    $fileName = $fileUploader->upload($file);
-                    $trick->getImageForward()->setFileName($fileName);
-                }
-
-                foreach ($trick->getImages()->getValues() as $image)
-                {
-                    $file = $image->getFile();
-                    if ($file !== null) {
-                        $fileUploader->setTargetDirectory($this->getParameter('trick_image_upload_directory'));
-                        $fileName = $fileUploader->upload($file);
-                        $image->setName($fileName);
-                    }
-                }
-    
-                $em->persist($trick);
-                $em->flush();
-
-                return $this->redirectToRoute('trick_edit', array('trick' => $trick, 'slug' => $slug));
-            }
+        if ($trickFormHandler->editHandle($trick, $trickForm))
+        {
+            return $this->redirectToRoute('tricks_index');
+        }
         
         return $this->render('trick/edit.html.twig', array(
             'trick' => $trick,
-            'trickGroups' => $trickGroups,
             'trickForm' => $trickForm->createView()
         ));
     }
@@ -157,41 +128,14 @@ class TrickController extends Controller
      * @param Request $request
      *
     */
-    public function add(Request $request, TrickRepository $trickRepository, EntityManagerInterface $em, FileUploader $fileUploader)
+    public function add(Request $request, TrickRepository $trickRepository, TrickFormHandler $trickFormHandler)
     {
         $trick = new Trick();
-        $trickForm = $this->createForm(TrickType::class, $trick);
-        
-        $trickForm->handleRequest($request);
-        if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            $trickData = $trickForm->getData();
-            $user = $this->getUser();
-            $slug = $trick->newSlug($trickData->getName());
-            
-            $trick->setAuthor($user);
-            $trick->setSlug($slug);
+        $trickForm = $this->createForm(TrickType::class, $trick)->handleRequest($request);
+        $user = $this->getUser();
 
-            $file = $trick->getImageForward()->getFile();
-                
-                if ($file !== null) {
-                    $fileUploader->setTargetDirectory($this->getParameter('trick_image_forward_upload_directory'));
-                    $fileName = $fileUploader->upload($file);
-                    $trick->getImageForward()->setFileName($fileName);
-                }
-
-                foreach ($trick->getImages()->getValues() as $image)
-                {
-                    $file = $image->getFile();
-                    if ($file !== null) {
-                        $fileUploader->setTargetDirectory($this->getParameter('trick_image_upload_directory'));
-                        $fileName = $fileUploader->upload($file);
-                        $image->setName($fileName);
-                    }
-                }
-            
-            $em->persist($trick);
-            $em->flush();
-
+        if ($trickFormHandler->addHandle($trick, $trickForm, $user))
+        {
             return $this->redirectToRoute('tricks_index');
         }
 
