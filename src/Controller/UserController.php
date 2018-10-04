@@ -15,32 +15,20 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Service\TokenGen;
 use App\Repository\UserRepository;
 use App\Service\Email;
+use App\Handler\Form\UserFormHandler;
 
 class UserController extends Controller
 {
     /**
      * @Route("/register", name="user_register")
      */
-    public function register(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, TokenGen $tokenGen, Email $email)
+    public function register(Request $request, UserFormHandler $userFormHandler, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User();
-        $userForm = $this->createForm(UserType::class, $user);
+        $userForm = $this->createForm(UserType::class, $user)->handleRequest($request);
 
-        $userForm->handleRequest($request);
-        if ($userForm->isSubmitted() && $userForm->isValid())
+        if ($userFormHandler->registerHandle($user, $userForm, $passwordEncoder))
         {
-            $password = $passwordEncoder->encodePassword($user, $user->getRawPassword());
-            $user->setPassword($password);
-            $token = $tokenGen->newToken();
-            $user->setToken($token);
-            
-            $em->persist($user);
-            $em->flush();
-
-            $title = 'Validation de votre compte SnowTricks';
-            $template = 'base.html.twig';
-            $email->send($user, $title, $template);
-
             return $this->redirectToRoute('tricks_index');
         }
 
@@ -72,25 +60,13 @@ class UserController extends Controller
     /**
      * @Route("/forgot-password", name="user_forgot_password")
      */
-    public function forgotPassword(Request $request, EntityManagerInterface $em, Email $email, UserRepository $userRepository, TokenGen $tokenGen)
+    public function forgotPassword(Request $request, UserRepository $userRepository, UserFormHandler $userFormHandler)
     {
         $user = new User();
-        $userForm = $this->createForm(ForgotPasswordType::class, $user);
-
-        $userForm->handleRequest($request);
-        if ($userForm->isSubmitted() && $userForm->isValid())
+        $userForm = $this->createForm(ForgotPasswordType::class, $user)->handleRequest($request);
+        
+        if ($userFormHandler->forgotPasswordHandle($user, $userForm, $userRepository))
         {
-            $user = $userRepository->findOneBy(['username' => $user->getUsername()]);
-            $token = $tokenGen->newToken();
-            $user->setToken($token);
-
-            $em->persist($user);
-            $em->flush();
-
-            $title = 'Réinitialisation de votre mot de passe SnowTricks';
-            $template = 'forgot_password.html.twig';
-            $email->send($user, $title, $template);
-
             return $this->redirectToRoute('tricks_index');
         }
         
@@ -102,27 +78,20 @@ class UserController extends Controller
     /**
      * @Route("/reset-password/{token}", name="user_reset_password")
      */
-    public function resetPassword(Request $request, EntityManagerInterface $em, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetPassword(Request $request, UserRepository $userRepository, $token, UserFormHandler $userFormHandler)
     {
-        $user = $userRepository->findOneBy(['token' => $request->attributes->get('token')]);
+        $user = $userRepository->findOneBy(['token' => $token]);
         if ($user == null)
         {
             return $this->redirectToRoute('tricks_index');
         }
-        $userForm = $this->createForm(ResetPasswordType::class, $user);
+        $userForm = $this->createForm(ResetPasswordType::class, $user)->handleRequest($request);
 
-        $userForm->handleRequest($request);
-        if ($userForm->isSubmitted() && $userForm->isValid())
+        if ($userFormHandler->resetPasswordHandle($user, $userForm))
         {
-            $password = $passwordEncoder->encodePassword($user, $user->getRawPassword());
-            $user->setPassword($password);
-            $user->setToken('');
-
-            $em->persist($user);
-            $em->flush();
-
             return $this->redirectToRoute('tricks_index');
         }
+
         return $this->render('user/reset_password.html.twig', array(
             'user_form' => $userForm->createView()
         ));
