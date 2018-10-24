@@ -20,7 +20,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Handler\Form\TrickFormHandler;
+use App\Handler\Form\Trick\DetailsHandler;
+use App\Handler\Form\Trick\EditHandler;
+use App\Handler\Form\Trick\AddHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use App\Service\Pagination;
 use App\Service\FileUploader;
@@ -74,7 +76,7 @@ class TrickController extends Controller
      *
      * @return array
      */
-    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, $slug, $page, Pagination $pagination, TrickFormHandler $trickFormHandler)
+    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, $slug, $page, Pagination $pagination, DetailsHandler $handler)
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $allComments = $commentRepository->findBy(['trick' => $trick]);
@@ -85,7 +87,8 @@ class TrickController extends Controller
         $user = $this->getUser();
         $commentForm = $this->createForm(CommentType::class, $comment)->handleRequest($request);
 
-        if ($trickFormHandler->detailsHandle($trick, $comment, $commentForm, $user))
+
+        if ($handler->handle($trick, $comment, $commentForm, $user))
         {
             return $this->redirectToRoute('trick_details', array('slug' => $slug, 'page' => $page));
         }
@@ -106,12 +109,12 @@ class TrickController extends Controller
      * 
      
      */
-    public function edit(Request $request, TrickRepository $trickRepository, $slug, TrickFormHandler $trickFormHandler)
+    public function edit(Request $request, TrickRepository $trickRepository, $slug, EditHandler $handler)
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $trickForm = $this->createForm(TrickType::class, $trick)->handleRequest($request);
 
-        if ($trickFormHandler->editHandle($trick, $trickForm))
+        if ($handler->handle($trick, $trickForm))
         {
             return $this->redirectToRoute('tricks_index');
         }
@@ -128,13 +131,13 @@ class TrickController extends Controller
      * @param Request $request
      *
     */
-    public function add(Request $request, TrickRepository $trickRepository, TrickFormHandler $trickFormHandler)
+    public function add(Request $request, TrickRepository $trickRepository, AddHandler $handler)
     {
         $trick = new Trick();
         $trickForm = $this->createForm(TrickType::class, $trick)->handleRequest($request);
         $user = $this->getUser();
 
-        if ($trickFormHandler->addHandle($trick, $trickForm, $user))
+        if ($handler->handle($trick, $trickForm, $user))
         {
             return $this->redirectToRoute('tricks_index');
         }

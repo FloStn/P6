@@ -22,7 +22,7 @@ class TrickFormHandler
         $this->trickImageUploadDir = $trickImageUploadDir->get('trick_image_upload_directory');
     }
 
-    public function detailsHandle($trick, $comment, $commentForm, $user)
+    /*public function detailsHandle($trick, $comment, $commentForm, $user)
     {
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $comment->setTrick($trick);
@@ -33,9 +33,9 @@ class TrickFormHandler
 
            return true;
         }
-    }
+    }*/
 
-    public function editHandle($trick, $trickForm)
+    /*public function editHandle($trick, $trickForm)
     {
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
 
@@ -46,9 +46,9 @@ class TrickFormHandler
 
             return true;
           }
-    }
+    }*/
 
-    public function addHandle($trick, $trickForm, $user)
+    /*public function addHandle($trick, $trickForm, $user)
     {
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $trickData = $trickForm->getData();
@@ -63,19 +63,19 @@ class TrickFormHandler
 
             return true;
         }
-    }
+    }*/
 
     public function uploadHandle($trick): void
     {
-        $file = $trick->getImageForward()->getFile();
-                
+        /*$file = $trick->getImageForward()->getFile();
+
         if ($file !== null) {
             $this->getFileUploader()->setTargetDirectory($this->getTrickImageForwardUploadDir());
             $fileName = $this->getFileUploader()->upload($file);
             $trick->getImageForward()->setFileName($fileName);
-        }
+        }*/
 
-        foreach ($trick->getImages()->getValues() as $image)
+        /*foreach ($trick->getImages()->getValues() as $image)
         {
             $file = $image->getFile();
             if ($file !== null) {
@@ -83,7 +83,7 @@ class TrickFormHandler
                 $fileName = $this->getFileUploader()->upload($file);
                 $image->setName($fileName);
             }
-        }
+        }*/
     }
 
     public function getEntityManager()
