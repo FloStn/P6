@@ -23,7 +23,7 @@ class UserFormHandler
         $this->tokenGen = $tokenGen;
     }
 
-    public function registerHandle($user, $userForm)
+    /*public function registerHandle($user, $userForm)
     {
         if ($userForm->isSubmitted() && $userForm->isValid())
         {
@@ -41,9 +41,9 @@ class UserFormHandler
 
             return true;
         }
-    }
+    }*/
 
-    public function forgotPasswordHandle($user, $userForm, UserRepository $userRepository)
+    /*public function forgotPasswordHandle($user, $userForm, UserRepository $userRepository)
     {
         if ($userForm->isSubmitted() && $userForm->isValid())
         {
@@ -60,9 +60,9 @@ class UserFormHandler
 
            return true;
         }
-    }
+    }*/
 
-    public function resetPasswordHandle($user, $userForm)
+    /*public function resetPasswordHandle($user, $userForm)
     {
         if ($userForm->isSubmitted() && $userForm->isValid())
         {
@@ -75,5 +75,5 @@ class UserFormHandler
 
             return true;
         }
-    }
+    }*/
 }

@@ -11,23 +11,24 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\UserType;
 use App\Form\ResetPasswordType;
 use App\Form\ForgotPasswordType;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Service\TokenGen;
 use App\Repository\UserRepository;
 use App\Service\Email;
-use App\Handler\Form\UserFormHandler;
+use App\Handler\Form\User\RegisterFormHandler;
+use App\Handler\Form\User\ForgotPasswordFormHandler;
+use App\Handler\Form\User\ResetPasswordFormHandler;
 
 class UserController extends Controller
 {
     /**
      * @Route("/register", name="user_register")
      */
-    public function register(Request $request, UserFormHandler $userFormHandler, UserPasswordEncoderInterface $passwordEncoder)
+    public function register(Request $request, RegisterFormHandler $handler)
     {
         $user = new User();
         $userForm = $this->createForm(UserType::class, $user)->handleRequest($request);
 
-        if ($userFormHandler->registerHandle($user, $userForm, $passwordEncoder))
+        if ($handler->handle($user, $userForm))
         {
             return $this->redirectToRoute('tricks_index');
         }
@@ -60,12 +61,12 @@ class UserController extends Controller
     /**
      * @Route("/forgot-password", name="user_forgot_password")
      */
-    public function forgotPassword(Request $request, UserRepository $userRepository, UserFormHandler $userFormHandler)
+    public function forgotPassword(Request $request, ForgotPasswordFormHandler $handler)
     {
         $user = new User();
         $userForm = $this->createForm(ForgotPasswordType::class, $user)->handleRequest($request);
         
-        if ($userFormHandler->forgotPasswordHandle($user, $userForm, $userRepository))
+        if ($handler->handle($user, $userForm))
         {
             return $this->redirectToRoute('tricks_index');
         }
@@ -78,7 +79,7 @@ class UserController extends Controller
     /**
      * @Route("/reset-password/{token}", name="user_reset_password")
      */
-    public function resetPassword(Request $request, UserRepository $userRepository, $token, UserFormHandler $userFormHandler)
+    public function resetPassword(Request $request, UserRepository $userRepository, $token, ResetFormHandler $handler)
     {
         $user = $userRepository->findOneBy(['token' => $token]);
         if ($user == null)
@@ -87,7 +88,7 @@ class UserController extends Controller
         }
         $userForm = $this->createForm(ResetPasswordType::class, $user)->handleRequest($request);
 
-        if ($userFormHandler->resetPasswordHandle($user, $userForm))
+        if ($handler->handle($user, $userForm))
         {
             return $this->redirectToRoute('tricks_index');
         }

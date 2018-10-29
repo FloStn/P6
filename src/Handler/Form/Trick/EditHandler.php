@@ -7,7 +7,7 @@ use App\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
-class EditHandler
+class EditFormHandler
 {
     private $entityManager;
     private $eventDispatcher;

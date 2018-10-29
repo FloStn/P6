@@ -20,9 +20,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Handler\Form\Trick\DetailsHandler;
-use App\Handler\Form\Trick\EditHandler;
-use App\Handler\Form\Trick\AddHandler;
+use App\Handler\Form\Trick\DetailsFormHandler;
+use App\Handler\Form\Trick\EditFormHandler;
+use App\Handler\Form\Trick\AddFormHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use App\Service\Pagination;
 use App\Service\FileUploader;
@@ -76,7 +76,7 @@ class TrickController extends Controller
      *
      * @return array
      */
-    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, $slug, $page, Pagination $pagination, DetailsHandler $handler)
+    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, $slug, $page, Pagination $pagination, DetailsFormHandler $handler)
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $allComments = $commentRepository->findBy(['trick' => $trick]);
@@ -109,7 +109,7 @@ class TrickController extends Controller
      * 
      
      */
-    public function edit(Request $request, TrickRepository $trickRepository, $slug, EditHandler $handler)
+    public function edit(Request $request, TrickRepository $trickRepository, $slug, EditFormHandler $handler)
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $trickForm = $this->createForm(TrickType::class, $trick)->handleRequest($request);
@@ -131,7 +131,7 @@ class TrickController extends Controller
      * @param Request $request
      *
     */
-    public function add(Request $request, TrickRepository $trickRepository, AddHandler $handler)
+    public function add(Request $request, TrickRepository $trickRepository, AddFormHandler $handler)
     {
         $trick = new Trick();
         $trickForm = $this->createForm(TrickType::class, $trick)->handleRequest($request);
