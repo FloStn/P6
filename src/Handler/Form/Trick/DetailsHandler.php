@@ -4,7 +4,7 @@ namespace App\Handler\Form\Trick;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-class DetailsFormHandler
+class DetailsHandler
 {
     private $entityManager;
 

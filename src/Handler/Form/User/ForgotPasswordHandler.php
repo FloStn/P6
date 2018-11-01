@@ -7,7 +7,7 @@ use App\Service\TokenGen;
 use App\Repository\UserRepository;
 use App\Service\Email;
 
-class ForgotPasswordFormHandler
+class ForgotPasswordHandler
 {
     private $entityManager;
     private $tokenGen;

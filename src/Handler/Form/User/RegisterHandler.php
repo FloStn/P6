@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Service\TokenGen;
 use App\Service\Email;
 
-class RegisterFormHandler
+class RegisterHandler
 {
     private $entityManager;
     private $passwordEncoder;

@@ -14,16 +14,16 @@ use App\Form\ForgotPasswordType;
 use App\Service\TokenGen;
 use App\Repository\UserRepository;
 use App\Service\Email;
-use App\Handler\Form\User\RegisterFormHandler;
-use App\Handler\Form\User\ForgotPasswordFormHandler;
-use App\Handler\Form\User\ResetPasswordFormHandler;
+use App\Handler\Form\User\RegisterHandler;
+use App\Handler\Form\User\ForgotPasswordHandler;
+use App\Handler\Form\User\ResetPasswordHandler;
 
 class UserController extends Controller
 {
     /**
      * @Route("/register", name="user_register")
      */
-    public function register(Request $request, RegisterFormHandler $handler)
+    public function register(Request $request, RegisterHandler $handler)
     {
         $user = new User();
         $userForm = $this->createForm(UserType::class, $user)->handleRequest($request);
@@ -61,7 +61,7 @@ class UserController extends Controller
     /**
      * @Route("/forgot-password", name="user_forgot_password")
      */
-    public function forgotPassword(Request $request, ForgotPasswordFormHandler $handler)
+    public function forgotPassword(Request $request, ForgotPasswordHandler $handler)
     {
         $user = new User();
         $userForm = $this->createForm(ForgotPasswordType::class, $user)->handleRequest($request);
@@ -79,7 +79,7 @@ class UserController extends Controller
     /**
      * @Route("/reset-password/{token}", name="user_reset_password")
      */
-    public function resetPassword(Request $request, UserRepository $userRepository, $token, ResetFormHandler $handler)
+    public function resetPassword(Request $request, UserRepository $userRepository, $token, ResetPasswordHandler $handler)
     {
         $user = $userRepository->findOneBy(['token' => $token]);
         if ($user == null)

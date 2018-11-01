@@ -5,7 +5,7 @@ namespace App\Handler\Form\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class ResetPasswordFormHandler
+class ResetPasswordHandler
 {
     private $entityManager;
     private $passwordEncoder;
