@@ -6,7 +6,7 @@
         <p>
             Bonjour <b>{{ user.username }}</b> !
             <br>
-            Pour valider votre compte, <a href=" {{ path('user_activate', { 'token': user.token }) }}">cliquez ici</a> !
+            Pour valider votre compte, <a href=" {{ url('user_activate', { 'token': user.token }) }}">cliquez ici</a> !
         </p>
         <hr>
         L'équipe SnowTricks.
