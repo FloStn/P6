@@ -29,3 +29,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\EventSubscriber\ImageForwardUploadSubscriber:
+        $dir: '%trick_image_forward_upload_directory%'
+
+    App\EventSubscriber\ImageUploadSubscriber:
+        $dir: '%trick_image_upload_directory%'
