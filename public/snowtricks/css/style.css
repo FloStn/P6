@@ -23,7 +23,7 @@ body,
 /* Adding color to the Navbar on mobile */
 @media only screen and (max-width: 768px) {
   .navbar {
-    background-color: #1C2331; } }
+    background-color: rgba(28, 35, 49, 0.856); } }
 
 /* Body */
 .gap-list {
@@ -531,4 +531,35 @@ figure.slider figure figcaption {
     position: absolute;
     bottom: 20px;
     right: 25px;
+}
+
+/* responsive navbar */
+
+@media (min-width: 992px) {
+
+    nav.navbar.bootsnav.navbar-fixed .logo-display{
+        display: none;
+    }
+    
+    .fixed-bottom {
+        display: none !important;
+    }
+
+    nav.navbar.bootsnav ul.nav > li > a{
+        padding: 30px 15px;
+        font-weight: 600;
+        font-size: 18px;
+        font-family: 'Lobster';
+    }
+
+    nav.navbar.bootsnav ul.nav > li {
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 992px) {
+
+    .navbar-expand-lg {
+        display: none !important;
+    }
 }

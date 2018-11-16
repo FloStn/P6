@@ -73,6 +73,29 @@
                     </div>
                 </div>
             </nav>
+            <nav class="navbar fixed-bottom">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <a href="{{ path('tricks_index') }}"><i class="fa fa-home" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">                  
+                            <a href="{{ path('tricks_index') }}#tricks"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <a href="{{ path('logout') }}"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
+                                {% else %}
+                                    <a href="{{ path('security_login') }}"><i class="fas fa-sign-in-alt"></i></a>
+                                {% endif %}
+                        </div>   
+                    </div>
+                </div>
+            </nav>
         </header>
         {% endblock %}
         {% block background %}
