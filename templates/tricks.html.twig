@@ -54,6 +54,13 @@
             </div>
             {% endfor %}
         </div>
+        <div class="row">
+            <div class="col-md-12 text-center p-3">
+                {% if page < totalPages %}
+                <a href={{ path('tricks_index', {'page': page + 1}) }}#tricks class="btn btn-primary">Voir plus de figures</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
     {% if tricks|length >= 15 %}
         <div class="scrollup">

@@ -4,16 +4,16 @@ namespace App\Service;
 
 class Pagination
 {
-    CONST PER_PAGE = 3;
+    CONST PER_PAGE = 10;
 
     private $start;
     private $limit;
-    private $nbPages;
+    private $totalPages;
 
     public function init(int $page, array $total) : void
     {
-        $this->nbPages = ceil(count($total) / self::PER_PAGE);
-        if ($page < 1 || $page > $this->nbPages) {
+        $this->totalPages = ceil(count($total) / self::PER_PAGE);
+        if ($page < 1 || $page > $this->totalPages) {
             $page = 1;
         }
 
@@ -41,13 +41,13 @@ class Pagination
         $this->limit = $limit;
     }
 
-    public function getNbPages()
+    public function getTotalPages()
     {
-        return $this->nbPages;
+        return $this->totalPages;
     }
 
-    public function setNbPages($nbPages)
+    public function setTotalPages($totalPages)
     {
-        $this->nbPages = $nbPages;
+        $this->totalPages = $totalPages;
     }
 }
