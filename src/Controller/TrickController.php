@@ -31,9 +31,7 @@ use App\Service\FileUploader;
 class TrickController extends Controller
 {
     /**
-     * Liste l'ensemble des figures triées par date de publication.
-     *
-     * @Route("/home", methods={"GET"}, name="tricks_index")
+     * @Route("/home/{page}", methods={"GET"}, name="tricks_index")
      *
      * @param Request $request
      * 
@@ -43,25 +41,22 @@ class TrickController extends Controller
      *
      * @return array
      */
-    public function index(Request $request, TrickRepository $trickRepository, EntityManagerInterface $em)
+    public function index(Request $request, $page, TrickRepository $trickRepository, EntityManagerInterface $em, Pagination $pagination)
     {
-        $perPage = 8;
-        $start = 0;
-        $page = $request->query->get('page_tricks', 1);
-        $limit = $perPage*$page;
-        $showMore = $page++;
-
-        $countAllTricks = $trickRepository->countAllTricks();
-        $totalPages = ceil($countAllTricks/$limit);
-        
-        $tricks = $trickRepository->getPagination($start, $limit);
+        $tricksPerPage = 15;
+        $allTricks = $trickRepository->findAll();
+        $totalPages = ceil(count($allTricks) / $tricksPerPage);
+        if ($page < 1 || $page == 0 || $page > $totalPages) {
+            $page = 1;
+        }
+        $tricks = $trickRepository->getPagination(0, $tricksPerPage * $page);
 
         return $this->render('tricks.html.twig', array(
             'tricks' => $tricks,
-            'showMore' => $showMore
+            'page' => $page,
+            'totalPages' => $totalPages
         ));
     }
-
 
     /**
      * @Route("/details/{slug}/{page}", methods={"GET", "POST"}, name="trick_details")
@@ -97,7 +92,7 @@ class TrickController extends Controller
             'trick' => $trick,
             'page' => $page,
             'comments' => $comments,
-            'nbPages' => $pagination->getNbPages(),
+            'totalPages' => $pagination->getTotalPages(),
             'commentForm' => $commentForm->createView()
         ));
     }

@@ -42,12 +42,12 @@
                         </ul>
                         <ul class="navbar-nav align-items-lg-center ml-lg-auto">
                             <li class="nav-item">
-                                <a href="{{ path('tricks_index') }}" class="nav-link">
+                                <a href={{ path('tricks_index', {'page': 1}) }} class="nav-link">
                                 <span class="nav-link-inner--text">Accueil</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('tricks_index') }}#tricks" class="nav-link">
+                                <a href={{ path('tricks_index', {'page': 1}) }}#tricks class="nav-link">
                                 <span class="nav-link-inner--text">Figures</span>
                                 </a>
                             </li>
