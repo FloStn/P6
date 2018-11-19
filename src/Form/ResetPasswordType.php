@@ -9,18 +9,29 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ResetPasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email',             EmailType::class)
+            ->add('email',             EmailType::class, array(
+                'attr' => array(
+                    'class' => 'form-control form-control-alternative',
+                    'placeholder' => 'Email'
+                )
+            ))
             ->add('rawPassword',       RepeatedType::class, array(
-                  'type'            => PasswordType::class,
-                  'invalid_message' => 'Les mots de passe doivent correspondre.',
-                  'first_options'  => array('label' => 'Mot de passe'),
-                  'second_options' => array('label' => 'Confirmez votre mot de passe'),
+                'type'            => PasswordType::class,
+                'invalid_message' => 'Les mots de passe doivent correspondre.',
+                'first_options'  => array('attr' => array('class' => 'form-control form-control-alternative', 'placeholder' => 'Mot de passe')),
+                'second_options' => array('attr' => array('class' => 'form-control form-control-alternative', 'placeholder' => 'Confirmez le mot de passe')),
+          ))
+            ->add('save', SubmitType::class, array(
+                'attr' => array(
+                    'class' => 'btn btn-primary btn-block btn-lg'
+                )
             ))
         ;
     }
