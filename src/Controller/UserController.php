@@ -30,7 +30,7 @@ class UserController extends Controller
 
         if ($handler->handle($user, $userForm))
         {
-            return $this->redirectToRoute('tricks_index');
+            return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
 
         return $this->render('user/register.html.twig', array(
@@ -46,7 +46,7 @@ class UserController extends Controller
         $user = $userRepository->findOneBy(['token' => $request->attributes->get('token')]);
         if ($user == null)
         {
-            return $this->redirectToRoute('tricks_index');
+            return $this->redirectToRoute('tricks_index', array('page' => 1));
         } else {
             $user->setIsActive(1);
             $user->setToken('');
@@ -54,7 +54,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('tricks_index');
+            return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
     }
 
@@ -68,7 +68,7 @@ class UserController extends Controller
         
         if ($handler->handle($user, $userForm))
         {
-            return $this->redirectToRoute('tricks_index');
+            return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
         
         return $this->render('user/forgot_password.html.twig', array(
@@ -84,13 +84,13 @@ class UserController extends Controller
         $user = $userRepository->findOneBy(['token' => $token]);
         if ($user == null)
         {
-            return $this->redirectToRoute('tricks_index');
+            return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
         $resetPasswordForm = $this->createForm(ResetPasswordType::class, $user)->handleRequest($request);
 
         if ($handler->handle($user, $resetPasswordForm))
         {
-            return $this->redirectToRoute('tricks_index');
+            return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
 
         return $this->render('user/reset_password.html.twig', array(
