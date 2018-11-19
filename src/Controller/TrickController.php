@@ -111,7 +111,7 @@ class TrickController extends Controller
 
         if ($handler->handle($trick, $trickForm))
         {
-            return $this->redirectToRoute('tricks_index');
+            return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
         
         return $this->render('trick/edit.html.twig', array(
@@ -134,7 +134,7 @@ class TrickController extends Controller
 
         if ($handler->handle($trick, $trickForm, $user))
         {
-            return $this->redirectToRoute('tricks_index');
+            return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
 
         return $this->render('trick/add.html.twig', array(
@@ -157,6 +157,6 @@ class TrickController extends Controller
         $em->remove($trick);
         $em->flush();
 
-        return $this->redirectToRoute('tricks_index');
+        return $this->redirectToRoute('tricks_index', array('page' => 1));
     }
 }
