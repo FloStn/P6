@@ -86,15 +86,15 @@ class UserController extends Controller
         {
             return $this->redirectToRoute('tricks_index');
         }
-        $userForm = $this->createForm(ResetPasswordType::class, $user)->handleRequest($request);
+        $resetPasswordForm = $this->createForm(ResetPasswordType::class, $user)->handleRequest($request);
 
-        if ($handler->handle($user, $userForm))
+        if ($handler->handle($user, $resetPasswordForm))
         {
             return $this->redirectToRoute('tricks_index');
         }
 
         return $this->render('user/reset_password.html.twig', array(
-            'user_form' => $userForm->createView()
+            'resetPasswordForm' => $resetPasswordForm->createView()
         ));
     }
 }
