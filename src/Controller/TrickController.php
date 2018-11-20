@@ -85,6 +85,7 @@ class TrickController extends Controller
 
         if ($handler->handle($trick, $comment, $commentForm, $user))
         {
+            $request->getSession()->getFlashBag()->add('success', 'Votre commentaire a bien été publié !');
             return $this->redirectToRoute('trick_details', array('slug' => $slug, 'page' => $page));
         }
 
@@ -111,6 +112,7 @@ class TrickController extends Controller
 
         if ($handler->handle($trick, $trickForm))
         {
+            $request->getSession()->getFlashBag()->add('success', 'La figure a bien été modifiée !');
             return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
         
@@ -134,6 +136,7 @@ class TrickController extends Controller
 
         if ($handler->handle($trick, $trickForm, $user))
         {
+            $request->getSession()->getFlashBag()->add('success', 'La figure a bien été ajoutée !');
             return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
 
@@ -157,6 +160,7 @@ class TrickController extends Controller
         $em->remove($trick);
         $em->flush();
 
+        $request->getSession()->getFlashBag()->add('success', 'La figure a bien été supprimée !');
         return $this->redirectToRoute('tricks_index', array('page' => 1));
     }
 }

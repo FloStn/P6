@@ -30,6 +30,7 @@ class UserController extends Controller
 
         if ($handler->handle($user, $userForm))
         {
+            $request->getSession()->getFlashBag()->add('success', 'Votre compte a été créé ! Veuillez vous rendre sur le lien envoyé sur votre email afin de l\'activer.');
             return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
 
@@ -46,6 +47,7 @@ class UserController extends Controller
         $user = $userRepository->findOneBy(['token' => $request->attributes->get('token')]);
         if ($user == null)
         {
+            $request->getSession()->getFlashBag()->add('warning', 'Impossible de trouver l\'utilisateur !');
             return $this->redirectToRoute('tricks_index', array('page' => 1));
         } else {
             $user->setIsActive(1);
@@ -54,6 +56,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $request->getSession()->getFlashBag()->add('warning', 'Votre compte a été activé ! Bienvenue parmis nous !');
             return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
     }
@@ -68,6 +71,7 @@ class UserController extends Controller
         
         if ($handler->handle($user, $userForm))
         {
+            $request->getSession()->getFlashBag()->add('success', 'Un lien de réinitialisation a été envoyé sur votre email !');
             return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
         
@@ -84,12 +88,14 @@ class UserController extends Controller
         $user = $userRepository->findOneBy(['token' => $token]);
         if ($user == null)
         {
+            $request->getSession()->getFlashBag()->add('warning', 'Impossible de trouver l\'utilisateur !');
             return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
         $resetPasswordForm = $this->createForm(ResetPasswordType::class, $user)->handleRequest($request);
 
         if ($handler->handle($user, $resetPasswordForm))
         {
+            $request->getSession()->getFlashBag()->add('success', 'Votre mot de passe a bien été modifié !');
             return $this->redirectToRoute('tricks_index', array('page' => 1));
         }
 
