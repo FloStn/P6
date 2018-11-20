@@ -20,13 +20,17 @@
             </div>
         </div>
     </div>
-    <!-- scroll down-->
-        <div class="scrolldown">
-            <a href="#tricks"><i class="fas fa-chevron-down fa-2x"></i></a>
-        </div><!-- End off scroll down -->
+    <div class="scrolldown">
+        <a href="#tricks"><i class="fas fa-chevron-down fa-2x"></i></a>
+    </div>
 </section>
 <section class="mt-5">
     <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <a class="btn-sm btn-primary fas fa-plus-square" href={{ path('trick_add') }}></a>
+            </div>
+        </div>
         <div id="tricks" class="row">
             {% for trick in tricks %}
             <div class="col-lg-3 col-md-2 mb-3">
@@ -66,9 +70,9 @@
         </div>
     </div>
     {% if tricks|length >= 15 %}
-        <div class="scrollup">
-            <a href="#"><i class="fas fa-chevron-up fa-2x"></i></a>
-        </div>
+    <div class="scrollup">
+        <a href="#"><i class="fas fa-chevron-up fa-2x"></i></a>
+    </div>
     {% endif %}
 </section>
 {% endblock %}
