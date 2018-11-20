@@ -77,6 +77,9 @@
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ form_start(commentForm) }}
                 <div class="row">
+                    <div class="col-md-6 center">
+                        {% include 'flash.html.twig' %}
+                    </div>
                     <div class="col-md-6 offset-md-3 p-3">
                         {{ form_widget(commentForm.content) }}
                     </div>
