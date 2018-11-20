@@ -67,7 +67,7 @@
                         <span class="badge badge-pill badge-default">Auteur: {{ trick.author.username }}</span>
                         <span class="badge badge-pill badge-default">Publié le {{ trick.publishDate|date("d/m/Y", "Europe/Paris") }} à {{ trick.publishDate|date("H:i:s") }}</span>
                         {% if trick.editDate is not empty %}
-                        <span class="badge badge-pill badge-default">Dernière modification le {{ trick.editDate|date("d/m/Y", "Europe/Paris") }} à {{ trick.editDate|date("H:i:s") }}</span>
+                        <span class="badge badge-pill badge-default">Modifié le {{ trick.editDate|date("d/m/Y", "Europe/Paris") }} à {{ trick.editDate|date("H:i:s") }}</span>
                         {% endif %}
                     </div>
                 </div>

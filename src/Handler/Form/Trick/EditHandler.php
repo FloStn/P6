@@ -21,14 +21,13 @@ class EditHandler
     public function handle($trick, $trickForm)
     {
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            //On déclenche l'event
             $event = new GenericEvent($trick);
             $this->eventDispatcher->dispatch(Events::IMAGE_FORWARD_UPLOADER, $event);
-            
-            //$eventImage = new GenericEvent($trick);
             $this->eventDispatcher->dispatch(Events::IMAGE_UPLOADER, $event);
-            //$this->uploadHandle($trick);
             
+            $editDate = new \Datetime();
+            $trick->setEditDate($editDate);
+
             $this->entityManager->persist($trick);
             $this->entityManager->flush();
 
