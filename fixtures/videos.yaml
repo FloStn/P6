@@ -1,0 +1,31 @@
+App\Entity\Video:
+    video0:
+        iframeUrl: https://www.youtube.com/embed/JJy39dO_PPE
+        trick: '@trick0'
+    video1:
+        iframeUrl: https://www.youtube.com/embed/W853WVF5AqI    
+        trick: '@trick1'
+    video2:
+        iframeUrl: https://www.dailymotion.com/embed/video/xwo4y7
+        trick: '@trick2'
+    video3:
+        iframeUrl: https://www.youtube.com/embed/GnYAlEt-s00
+        trick: '@trick3'
+    video4:
+        iframeUrl: https://www.youtube.com/embed/3UZwv8-U88I
+        trick: '@trick4'
+    video5:
+        iframeUrl: https://www.dailymotion.com/embed/video/xwn2h8
+        trick: '@trick5'
+    video6:
+        iframeUrl: https://www.youtube.com/embed/L4bIunv8fHM
+        trick: '@trick6'
+    video7:
+        iframeUrl: https://www.youtube.com/embed/jH76540wSqU
+        trick: '@trick7'
+    video8:
+        iframeUrl: https://www.youtube.com/embed/cGiAFk2adMw
+        trick: '@trick8'
+    video9:
+        iframeUrl: https://www.youtube.com/embed/qvnsjVJCbA0
+        trick: '@trick9'

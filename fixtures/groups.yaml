@@ -1,0 +1,9 @@
+App\Entity\TrickGroup:
+    trick_group0:
+        name: Back
+    trick_group1:
+        name: Flips
+    trick_group2:
+        name: Front
+    trick_group3:
+        name: Grabs

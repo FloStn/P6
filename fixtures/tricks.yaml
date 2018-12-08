@@ -1,0 +1,61 @@
+App\Entity\Trick:
+    trick0:
+        trickGroup: '@trick_group2'
+        author: '@user0'
+        name: 360 Front
+        slug: 360-front
+        description: Pour commencer, gardez les genoux en flexion et les bras tendus parallèles à la planche. Regardez toujours bien loin devant le Kick (Bosse pour effectuer des sauts). Arrivé sur le Kick, il faut bien fléchir les jambes. Et arrivé en sortie de kick il faut donner une impulsion avec vos jambes. Lors de votre rotation vous allez perdre la visibilité sur votre réception. Vous ne la verrez qu'en dernier. Pour contrôler votre réception, vous pouvez regarder entre vos jambes pendant la rotation pour garder une visibilité sur votre point de chute. Une fois en l'air et la rotation effectuer regardez bien la réception. Puis plaquez votre planche au sol. Une fois stable, redressez la tête et contrôlez bien autour de vous pour éviter tout danger pour vous ou pour les autres Snowboarders.
+    trick1:
+        trickGroup: '@trick_group0'
+        author: '@user0'
+        name: Backflip
+        slug: backflip
+        description: Un Backflip est un salto arrière (ou saut périlleux arrière ). Pour  faire cette figure il faut tout d'abord choisir une bosse, trick ou tremplin  qui vous propulse à une hauteur suffisante pour amorcer le flip. Ce choix est très important puisque c'est la forme du tremplin qui entraine votre corps vers l'arrière, c'est ensuite à vous de jauger la vitesse de rotation en vous servant de vos jambes et de vos bras. Souvenez-vous que les genoux groupés et fermés augmentent la vitesse. Les bras ouverts et tendus ralentissent la rotation. Gardez constamment la tête droite sur les épaules, ne la penchez pas en arrières vous risqueriez de perdre le contrôle de la rotation. N'hésitez pas à vous entrainer sur un trampoline ou à la piscine pour éviter de vous blesser. Et lorsque vous ridez, pensez à votre équipement pour votre sécurité.
+    trick2:
+        trickGroup: '@trick_group0'
+        author: '@user0'
+        name: 180 Back
+        slug: 180-back
+        description: Back signifie arrière en anglais, un 180 back, veut donc dire une rotation de 180 degrés vers l'arrière, c'est à dire un demi tour, a la réception vous serez donc en switch c'est à dire votre pied arrière en avant. Pour effectuer cette figure il faut tout d'abord déclencher une impulsion puis faire une rotation de votre corps, la planche suivra. Le 180 back veut dire que la rotation part de votre pied situé à l'arrière de votre snowboard. Le sens de la rotation dépend de votre pied avant (goofie ou regular).
+    trick3:
+        trickGroup: '@trick_group2'
+        author: '@user0'
+        name: Frontside 180
+        slug: frontside-180
+        description: Au fur et à mesure que vous vous améliorez avec votre Front 1, il est important d'ajouter de la pop en allongeant les jambes lorsque vous quittez le décollage. Plus vous obtenez de hauteur, plus vous aurez besoin de rotation tout au long de votre rotation. Vos 180 arriveront plus facilement et leur donneront l’air super flottantes. Maintenant, vous pouvez Frontside 180! Grâce à ces étapes, vous pourrez désormais progresser sur une pente douce, puis sur des coups de plus en plus importants. N'oubliez pas d'explorer la montagne à la recherche de nouveaux succès latéraux pour essayer votre Front 1, car cela accélérera votre progression encore plus rapidement (en plus, il est amusant d'ennuyer les équipes de sécurité).
+    trick4:
+        trickGroup: '@trick_group0'
+        author: '@user0'
+        name: Shifty Backside 180
+        slug: shifty-backside-180
+        description: Un Shifty Backside 180, également appelé "Shifty Back 1", est une version stylée du Backside 180. Dans ce didacticiel, nous vous apprendrons comment combiner rotation et contre-rotation en une seule rotation pour ajouter une touche de style à votre ride.
+    trick5:
+        trickGroup: '@trick_group0'
+        author: '@user0'
+        name: Ollie
+        slug: ollie
+        description: Le ollie a été inventé par Alan « Ollie » Gelfand, en 1978 en skateboard. La figure est la même en snowboard, il s'agit d'appuyer sur l'arrière de votre planche, d'en relever le nose ( le nez ou la partie en avant du snow ) puis de lancer une impulsion en n'oubliant pas de faire suivre la seconde jambe.
+    trick6:
+        trickGroup: '@trick_group3'
+        author: '@user0'
+        name: Les Grabs
+        slug: les-grabs
+        description: Les Grabs, ce sont la base des figures du freestyle en Snowboard. C’est le mouvement d’aller attraper son snowboard avec une main ou deux. Ce sont des figures que l’on peut exécuter seules ou en combinaison avec des rotations.
+    trick7:
+        trickGroup: '@trick_group3'
+        author: '@user0'
+        name: Japan Grab
+        slug: japan-grab
+        description: Selon Tony Hawk, «Il y avait un article dans TWS sur le Japon autour de 1984». La première diffusion consistait en une énorme photo d’un Japonais faisant l’air muet avec le titre "JAPAN" au-dessus. Nous n'avions jamais vu un tel spectacle et avons immédiatement commencé à l'appeler par ce nom, car la présentation du magazine le nommait presque par défaut. Quelqu'un devrait trouver ce problème. Eh bien, après avoir parcouru suffisamment de pages d'anciens numéros de TransWorld SKATEboarding pour rendre nos pouces crus, nous l'avons trouvé. La mémoire peut être une chose glissante, et il s'avère que le truc est apparu dans le numéro de février 1985 et que la photo est un petit encart, pas une propagation. Sinon, le souvenir de Hawk est parfait, et le tweak unique du patineur japonais sur une pince mutuelle classique a jeté les bases de ce que nous appellerons à jamais un Japon. Inspiré, Hawk a commencé à reproduire ce mouvement, et sa construction maigre a accentué ce tweak comme personne ne le pourrait. Peu de temps après, deux coups de Hawk coururent dans le TWSKATE d’août 1985 immortalisant le grappin et le nom pour toujours.
+    trick8:
+        trickGroup: '@trick_group2'
+        author: '@user0'
+        name: Frontside 540
+        slug: frontside-540
+        description: Cette figure peut être un peu intimidante au début. Si vous avez les bases d'acquises, cela deviendra de plus en plus facile à mesure que vous serez plus à l'aise pour repérer votre atterrissage. Maintenant, sortez et essayez !
+    trick9:
+        trickGroup: '@trick_group1'
+        author: '@user0'
+        name: Tamedog
+        slug: tamedog
+        description: Le timing et la technique du Tamedog sont difficiles au début mais deviennent faciles avec la pratique.

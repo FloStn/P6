@@ -1,0 +1,21 @@
+App\Entity\Comment:
+    comment0:
+        author: '@user0'
+        trick: '@trick0'
+        content: Test commentaire 5 !
+    comment1:
+        author: '@user0'
+        trick: '@trick0'
+        content: Test commentaire 4 !
+    comment2:
+        author: '@user0'
+        trick: '@trick0'
+        content: Test commentaire 3 !
+    comment3:
+        author: '@user0'
+        trick: '@trick0'
+        content: Test commentaire 2 !
+    comment4:
+        author: '@user0'
+        trick: '@trick0'
+        content: Test commentaire 1 !
