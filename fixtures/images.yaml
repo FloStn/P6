@@ -1,0 +1,94 @@
+App\Entity\Image:
+    image0:
+        name: 1.jpg
+        trick: '@trick0'
+    image1:
+        name: 2.jpg
+        trick: '@trick0'
+    image2:
+        name: 3.jpg
+        trick: '@trick0'
+    image3:
+        name: 4.jpg
+        trick: '@trick0'
+    image4:
+        name: 5.jpg
+        trick: '@trick0'
+    image5:
+        name: 6.gif
+        trick: '@trick0'
+    image6:
+        name: 7.jpg
+        trick: '@trick1'
+    image7:
+        name: 8.gif
+        trick: '@trick1'
+    image8:
+        name: 9.jpg
+        trick: '@trick1'
+    image9:
+        name: 10.jpg
+        trick: '@trick1'
+    image10:
+        name: 11.jpg
+        trick: '@trick2'
+    image11:
+        name: 12.gif
+        trick: '@trick2'
+    image12:
+        name: 13.jpg
+        trick: '@trick3'
+    image13:
+        name: 14.gif
+        trick: '@trick3'
+    image14:
+        name: 15.jpg
+        trick: '@trick3'
+    image15:
+        name: 16.jpg
+        trick: '@trick3'
+    image16:
+        name: 17.gif
+        trick: '@trick3'
+    image17:
+        name: 18.jpg
+        trick: '@trick4'
+    image18:
+        name: 19.jpg
+        trick: '@trick4'
+    image19:
+        name: 20.jpg
+        trick: '@trick4'
+    image20:
+        name: 21.gif
+        trick: '@trick4'
+    image21:
+        name: 22.jpg
+        trick: '@trick5'
+    image22:
+        name: 23.gif
+        trick: '@trick5'
+    image23:
+        name: 24.jpg
+        trick: '@trick6'
+    image24:
+        name: 25.jpg
+        trick: '@trick7'
+    image25:
+        name: 26.jpg
+        trick: '@trick8'
+    image26:
+        name: 27.jpg
+        trick: '@trick8'
+    image27:
+        name: 28.gif
+        trick: '@trick8'
+    image28:
+        name: 29.jpg
+        trick: '@trick9'
+    image29:
+        name: 30.gif
+        trick: '@trick9'
+    image30:
+        name: 31.gif
+        trick: '@trick9'

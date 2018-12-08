@@ -1,0 +1,8 @@
+App\Entity\User:
+    user0:
+        avatar: '@avatar0'
+        email: admin123@yahoo.fr
+        username: Admin
+        password: admin
+        token: ''
+        isActive: 1
