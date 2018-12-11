@@ -21,10 +21,10 @@ security:
                 check_path: /login
                 login_path: /login
                 csrf_token_generator: security.csrf.token_manager
-                default_target_path: tricks_index
+                default_target_path: /home/1
             logout:
                 path: /logout
-                target: tricks_index
+                target: /home/1
             provider: database_users
 
     #access_control:
