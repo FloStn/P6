@@ -25,20 +25,19 @@ class ImageForward
     private $fileName;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Trick", inversedBy="imageForward", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Trick", inversedBy="imageForward")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
 
     /**
-     * @Assert\File(mimeTypes={ "image/jpg" })
+     * @Assert\File(
+     *     maxSize = "120k",
+     *     mimeTypes = {"image/jpg", "image/jpeg", "image/gif"},
+     *     mimeTypesMessage = "Le format de l'image doit être .jpg, .jpeg ou .gif."
+     * )
      */
     private $file;
-
-    public function __construct()
-    {
-        $this->setFileName("default.jpg");
-    }
 
     public function getId()
     {

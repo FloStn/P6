@@ -62,7 +62,11 @@ class TrickType extends AbstractType
                 'expanded'  => false,
                 'label' => 'Groupe de la figure'
             ))
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, array(
+                'attr' => array(
+                    'class' => 'btn btn-primary'),
+                'label' => 'Enregistrer les changements'
+            ))
         ;
     }
 

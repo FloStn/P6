@@ -563,3 +563,56 @@ figure.slider figure figcaption {
         display: none !important;
     }
 }
+
+/* responsive medias */
+
+@media (min-width: 992px) {
+
+    #medias-show {
+        display: none;
+    }
+
+    #medias-hidden {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    
+    #medias-hidden {
+        display: none;
+    }
+
+    #images {
+        display: none;
+    }
+
+    #videos {
+        display: none;
+    }
+
+    #medias-divider {
+        display: none;
+    }
+}
+
+/* responsive background */
+
+@media (max-width: 992px) {
+    
+    .section-shaped {
+        display: none;
+    }
+    
+    .background {
+        display: none;
+    }
+
+    .section-profile-cover {
+        display: none;
+    }
+
+    .mt--300 {
+        margin-top: -50px !important;
+    }
+}

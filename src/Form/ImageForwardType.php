@@ -14,9 +14,6 @@ class ImageForwardType extends AbstractType
     {
         $builder
             ->add('file', FileType::class, array(
-                'attr' => array(
-                    'class' => 'fas fa-edit'
-                ),
                 'label' => false,
                 'required' => false
                 ))
