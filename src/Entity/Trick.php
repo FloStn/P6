@@ -47,7 +47,7 @@ class Trick
      * @Assert\Type("string")
      * @Assert\Length(
      *      min = 20,
-     *      minMessage = "Le nom d'une figure doit être composé d'au moins 20 caractères.")
+     *      minMessage = "La description d'une figure doit être composé d'au moins 20 caractères.")
      */
     private $description;
 
@@ -99,8 +99,8 @@ class Trick
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->publishDate = new \Datetime();
-        $imageForward = new ImageForward();
-        $this->setImageForward($imageForward);
+        //$imageForward = new ImageForward();
+        //$this->setImageForward($imageForward);
     }
 
     public function getId()
@@ -231,18 +231,7 @@ class Trick
         return $this;
     }
 
-    public function removeMessage(Message $message): self
-    {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
-            // set the owning side to null (unless already changed)
-            if ($message->getTrick() === $this) {
-                $message->setTrick(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection|Image[]

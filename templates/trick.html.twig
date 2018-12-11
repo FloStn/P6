@@ -10,46 +10,67 @@
 {% endblock %}
 {% block main %}  
 <main class="profile-page">
-    <section class="section-profile-cover section-shaped my-0 background">
+    <section class="section-profile-cover section-shaped background">
+    <div class="col-lg-6 center">
+                {% include 'flash.html.twig' %}
+            </div>
     </section>
     <section class="section">
         <div class="container">
             <div class="card card-profile shadow mt--300">
                 <div class="row">
-                    <div class="col-md-1 offset-md-10 col-sm-1 offset-sm-10 text-lg-right align-self-lg-center">
+                    <div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 text-right">
                         <a class="fas fa-edit" href={{ path('trick_edit', {'slug': trick.slug}) }}></a>
                     </div>
-                    <div class="col-md-1 col-sm-1">
-                        <a class="fas fa-trash-alt text-danger" data-toggle="modal" data-target="#modalTrickDelete{{ trick.id }}"></a>
-                    </div>
-                    <div class="col-md-12">
-                        <div id="captioned-gallery">
-                            <figure class="slider">
-                                <figure>
-                                    <img src={{ asset('upload/trick/image-forward/'~trick.imageForward.fileName) }} alt="image_forward">
-                                    <figcaption>
-                                        <div class="col-md-3 mx-auto">
-                                            {{ trick.name }}
-                                        </div>
-                                    </figcaption>
-                                </figure>
-                            </figure>
-                        </div>
+                    <div class="col-lg-1 col-sm-1 col-xs-1 text-right">
+                        <a class="fas fa-trash-alt text-danger mr-3" data-toggle="modal" data-target="#modalTrickDelete{{ trick.id }}"></a>
                     </div>
                 </div>
-                <div class="row px-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="captioned-gallery">
+                                <figure class="slider">
+                                    <figure>
+                                    {% if trick.imageForward is null and trick.images is empty %}
+                                        <img src={{ asset('upload/trick/image-forward/default.jpg') }} height="150px" width="200px" alt="image_forward">
+                                    {% elseif trick.imageForward is null and trick.images is not empty %}
+                                        <img src={{ asset('upload/trick/image/'~trick.images|first.name) }} height="150px" width="200px" alt="trick"></img>
+                                    {% else %}
+                                        <img src={{ asset('upload/trick/image-forward/'~trick.imageForward.fileName) }} height="150px" width="200px" alt="image_forward">
+                                    {% endif %}
+                                        <figcaption>
+                                            <div class="col-md-3 mx-auto">
+                                                {{ trick.name }}
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">
+                    <button id="medias-show" type="button" class="btn btn-primary col-8 mx-auto">
+                        Afficher les médias
+                    </button>
+                    <button id="medias-hidden" type="button" class="btn btn-primary col-8 mx-auto">
+                        Cacher les médias
+                    </button>
+                </div>
+                <div id="images" class="row px-3">
                     {% for image in trick.images %}
                     <div class="col-lg-3 panel-videos panel-warning">
                         <div class="panel-images panel-warning">
-                            <div class="panel-heading">
+                            <div class="panel-heading text-center p-3">
                                 <img src={{ asset('upload/trick/image/'~image.name) }} alt={{ trick.name }} width="220px" height="auto">
                             </div>
                         </div>
                     </div>
                     {% endfor %}
+                </div>
+                <div id="videos" class="row px-3">
                     {% for video in trick.videos %}
                     <div class="col-lg-3 panel-videos panel-warning">
-                        <div class="panel-heading">
+                        <div class="panel-heading text-center p-3">
                             <iframe class="img-fluid" src={{ video.iframeUrl }} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                         </div>
                     </div>
@@ -90,10 +111,10 @@
                 {{ form_rest(commentForm) }}
                 {{ form_end(commentForm) }}
                 {% endif %}
-                <div class="row mx-auto">
+                <div class="row">
                     {% for comment in comments %}
-                    <div class="col-md-2 mt-5 text-center">
-                        <img src={{ asset('upload/avatar/'~comment.author.avatar.url) }} alt="avatar" width="100px" height="auto">
+                    <div class="col-md-2 text-center mt-5">
+                        <img src={{ asset('upload/avatar/'~comment.author.avatar.url) }} alt="avatar" width="50px" height="auto">
                         <h6> {{ comment.author.username }} </h6>
                     </div>
                     <div class="col-md-10 mt-5">
@@ -156,6 +177,5 @@
 <script type="text/javascript" src="{{ asset('argon-material-design/vendor/headroom/headroom.min.js') }}"></script>
 <!-- Argon JS -->
 <script type="text/javascript" src="{{ asset('argon-material-design/js/argon.js?v=1.0.1') }}"></script>
-<!-- Collection -->
-<script type="text/javascript" src="{{ asset('snowtricks/js/collection.js') }}"></script>
+<script type="text/javascript" src="{{ asset('snowtricks/js/main.js') }}"></script>
 {% endblock %}

@@ -113,7 +113,7 @@ class TrickController extends Controller
         if ($handler->handle($trick, $trickForm))
         {
             $request->getSession()->getFlashBag()->add('success', 'La figure a bien été modifiée !');
-            return $this->redirectToRoute('tricks_index', array('page' => 1));
+            return $this->redirectToRoute('trick_details', array('slug' => $slug, 'page' => 1));
         }
         
         return $this->render('trick/edit.html.twig', array(

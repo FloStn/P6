@@ -29,13 +29,14 @@ class ImageForwardUploadSubscriber implements EventSubscriberInterface
     public function onUploaded(GenericEvent $event): void
     {
         $trick = $event->getSubject();
-        $file = $event->getSubject()->getImageForward()->getFile();
+        $file = $event->getSubject()->getImageForward();
                 
         if ($file !== null) {
             $this->fileUploader->setTargetDirectory($this->dir);
-            $fileName = $this->fileUploader->genFileName($file);
-            $this->fileUploader->upload($file);
+            $fileName = $this->fileUploader->genFileName($file->getFile());
+            $this->fileUploader->upload($file->getFile());
             $trick->getImageForward()->setFileName($fileName);
         }
+
     }
 }
