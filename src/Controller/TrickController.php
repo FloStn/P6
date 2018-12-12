@@ -26,6 +26,7 @@ use App\Handler\Form\Trick\AddHandler;
 use Symfony\Component\Filesystem\Filesystem;
 use App\Service\Pagination;
 use App\Service\FileUploader;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class TrickController extends Controller
@@ -101,9 +102,10 @@ class TrickController extends Controller
     /**
      * @Route("/edit/{slug}", methods={"GET", "POST"}, name="trick_edit")
      * 
+     * @IsGranted("ROLE_USER")
+     * 
      * @param Request $request
      * 
-     
      */
     public function edit(Request $request, TrickRepository $trickRepository, $slug, EditHandler $handler)
     {
@@ -124,6 +126,8 @@ class TrickController extends Controller
 
     /**
      * @Route("/add", methods={"GET", "POST"}, name="trick_add")
+     * 
+     * @IsGranted("ROLE_USER")
      * 
      * @param Request $request
      *
@@ -148,6 +152,8 @@ class TrickController extends Controller
 
     /**
      * @Route("/delete/{slug}", methods={"GET", "POST"}, name="trick_delete")
+     * 
+     * @IsGranted("ROLE_USER")
      * 
      * @param Request $request
      * 
