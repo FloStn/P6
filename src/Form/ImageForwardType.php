@@ -13,17 +13,17 @@ class ImageForwardType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', FileType::class, array(
+            ->add('file', FileType::class, [
                 'label' => false,
-                'required' => false
-                ))
+                'required' => false,
+                ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'validation_groups' => array('registration'),
+            'validation_groups' => ['registration'],
             'data_class' => ImageForward::class,
         ]);
     }

@@ -2,13 +2,11 @@
 
 namespace App\Service;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 class TokenGen
 {
     public function newToken()
     {
-        $characters = array(
+        $characters = [
             0,
             1,
             2,
@@ -19,40 +17,40 @@ class TokenGen
             7,
             8,
             9,
-            "a",
-            "b",
-            "c",
-            "d",
-            "e",
-            "f",
-            "g",
-            "h",
-            "i",
-            "j",
-            "k",
-            "l",
-            "m",
-            "n",
-            "o",
-            "p",
-            "q",
-            "r",
-            "s",
-            "t",
-            "u",
-            "v",
-            "w",
-            "x",
-            "y",
-            "z"
-        );
-        $password   = "";
+            'a',
+            'b',
+            'c',
+            'd',
+            'e',
+            'f',
+            'g',
+            'h',
+            'i',
+            'j',
+            'k',
+            'l',
+            'm',
+            'n',
+            'o',
+            'p',
+            'q',
+            'r',
+            's',
+            't',
+            'u',
+            'v',
+            'w',
+            'x',
+            'y',
+            'z',
+        ];
+        $password = '';
         $size = 20;
-        
-        for ($i = 0; $i < $size; $i++) {
+
+        for ($i = 0; $i < $size; ++$i) {
             $password .= ($i % 2) ? strtoupper($characters[array_rand($characters)]) : $characters[array_rand($characters)];
         }
-        
+
         return $password;
     }
 }

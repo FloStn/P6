@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\ImageForward;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -99,8 +98,6 @@ class Trick
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->publishDate = new \Datetime();
-        //$imageForward = new ImageForward();
-        //$this->setImageForward($imageForward);
     }
 
     public function getId()
@@ -137,16 +134,14 @@ class Trick
         $name = preg_replace('#[^\\pL\d]+#u', '-', $name);
         $name = trim($name, '-');
 
-        if (function_exists('iconv'))
-        {
+        if (function_exists('iconv')) {
             $name = iconv('utf-8', 'us-ascii//TRANSLIT', $name);
         }
 
         $name = strtolower($name);
         $name = preg_replace('#[^-\w]+#', '', $name);
 
-        if (empty($name))
-        {
+        if (empty($name)) {
             return 'n-a';
         }
 
@@ -231,8 +226,6 @@ class Trick
         return $this;
     }
 
-    
-
     /**
      * @return Collection|Image[]
      */
@@ -247,6 +240,7 @@ class Trick
         // setting the current user to the $exp,
         // adapt this to whatever you are trying to achieve
         $image->setTrick($this);
+
         return $this;
     }
 
@@ -254,7 +248,6 @@ class Trick
     {
         $this->images->removeElement($image);
     }
-
 
     /**
      * @return Collection|Video[]
@@ -270,6 +263,7 @@ class Trick
         // setting the current user to the $exp,
         // adapt this to whatever you are trying to achieve
         $video->setTrick($this);
+
         return $this;
     }
 

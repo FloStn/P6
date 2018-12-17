@@ -1,123 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <link rel="icon" href={{ asset('snowtricks/img/favicon.ico') }} />
-        <title>SnowTricks-Site communautaire de snowboarders</title>
-        {% block stylesheets %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block navbar %}
-        <header class="header-global">
-            <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom">
-                <div class="container">
-                    <a class="navbar-brand mr-lg-5" href="../index.html">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse" id="navbar_global">
-                        <div class="navbar-collapse-header">
-                            <div class="row">
-                                <div class="col-6 collapse-brand">
-                                    <a href="../index.html">
-                                    </a>
-                                </div>
-                                <div class="col-6 collapse-close">
-                                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span></span>
-                                    <span></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-                            <li class="nav-item">
-                                <img src="{{ asset('snowtricks/img/logo.png') }}" alt="logo" width="50%">
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-                            <li class="nav-item">
-                                <a href={{ path('tricks_index', {'page': 1}) }} class="nav-link">
-                                <span class="nav-link-inner--text">Accueil</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href={{ path('tricks_index', {'page': 1}) }}#tricks class="nav-link">
-                                <span class="nav-link-inner--text">Figures</span>
-                                </a>
-                            </li>
-                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li class="nav-item">
-                                <a href="{{ path('logout') }}" class="nav-link">
-                                <span class="nav-link-inner--text">Déconnexion</span>
-                                </a>
-                            </li>
-                            {% else %}
-                            <li class="nav-item">
-                                <a href="{{ path('security_login') }}" class="nav-link">
-                                <span class="nav-link-inner--text">Connexion</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('user_register') }}" class="nav-link">
-                                <span class="nav-link-inner--text">Créer un compte</span>
-                                </a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <nav class="navbar fixed-bottom">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <a href="{{ path('tricks_index', {'page': 1}) }}"><i class="fa fa-home" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">                  
-                            <a href="{{ path('tricks_index', {'page': 1}) }}#tricks"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                    <a href="{{ path('logout') }}"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
-                                {% else %}
-                                    <a href="{{ path('security_login') }}"><i class="fas fa-sign-in-alt"></i></a>
-                                {% endif %}
-                        </div>   
-                    </div>
-                </div>
-            </nav>
-        </header>
-        {% endblock %}
-        {% block background %}
-        {% endblock %}
-        <!--Main layout-->
-        {% block main %}
-        {% endblock %}
-        {% block footer %}
-        <footer class="footer">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <link rel="icon" href={{ asset('snowtricks/img/favicon.ico') }} />
+      <title>SnowTricks-Site communautaire de snowboarders</title>
+      {% block stylesheets %}
+      {% endblock %}
+   </head>
+   <body>
+      {% block navbar %}
+      <header class="header-global">
+         <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 copyright">
-                        &copy; {{ "now"|date("Y") }} Snowtricks.
-                    </div>
-                    <div class="col-lg-9 copyright">
-                        Projet 6 réalisé par Florian STEIN dans le cadre de la formation Développeur PHP/Symfony d'<a href="http://openclassrooms.com">OpenClassrooms.</a>
-                    </div>
-                </div>
+               <a class="navbar-brand mr-lg-5" href="../index.html">
+               </a>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="navbar-collapse collapse" id="navbar_global">
+                  <div class="navbar-collapse-header">
+                     <div class="row">
+                        <div class="col-6 collapse-brand">
+                           <a href="../index.html">
+                           </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                           <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+                           <span></span>
+                           <span></span>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+                     <li class="nav-item">
+                        <img src="{{ asset('snowtricks/img/logo.png') }}" alt="logo" width="50%">
+                        </a>
+                     </li>
+                  </ul>
+                  <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+                     <li class="nav-item">
+                        <a href={{ path('tricks_index', {'page': 1}) }} class="nav-link">
+                        <span class="nav-link-inner--text">Accueil</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href={{ path('tricks_index', {'page': 1}) }}#tricks class="nav-link">
+                        <span class="nav-link-inner--text">Figures</span>
+                        </a>
+                     </li>
+                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                     <li class="nav-item">
+                        <a href="{{ path('logout') }}" class="nav-link">
+                        <span class="nav-link-inner--text">Déconnexion</span>
+                        </a>
+                     </li>
+                     {% else %}
+                     <li class="nav-item">
+                        <a href="{{ path('security_login') }}" class="nav-link">
+                        <span class="nav-link-inner--text">Connexion</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="{{ path('user_register') }}" class="nav-link">
+                        <span class="nav-link-inner--text">Créer un compte</span>
+                        </a>
+                     </li>
+                     {% endif %}
+                  </ul>
+               </div>
             </div>
-        </footer>
-        {% endblock %}
-        {% block javascript %}
-        {% endblock %}
-    </body>
+         </nav>
+         <nav class="navbar fixed-bottom">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-sm-4">
+                     <a href="{{ path('tricks_index', {'page': 1}) }}"><i class="fa fa-home" aria-hidden="true"></i></a>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-4">                  
+                     <a href="{{ path('tricks_index', {'page': 1}) }}#tricks"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-4">
+                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                     <a href="{{ path('logout') }}"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
+                     {% else %}
+                     <a href="{{ path('security_login') }}"><i class="fas fa-sign-in-alt"></i></a>
+                     {% endif %}
+                  </div>
+               </div>
+            </div>
+         </nav>
+      </header>
+      {% endblock %}
+      {% block background %}
+      {% endblock %}
+      {% block main %}
+      {% endblock %}
+      {% block footer %}
+      <footer class="footer">
+         <div class="container">
+            <div class="row align-items-center">
+               <div class="col-lg-3 copyright">
+                  &copy; {{ "now"|date("Y") }} Snowtricks.
+               </div>
+               <div class="col-lg-9 copyright">
+                  Projet 6 réalisé par Florian STEIN dans le cadre de la formation Développeur PHP/Symfony d'<a href="http://openclassrooms.com">OpenClassrooms.</a>
+               </div>
+            </div>
+         </div>
+      </footer>
+      {% endblock %}
+      {% block javascript %}
+      {% endblock %}
+   </body>
 </html>

@@ -65,6 +65,7 @@ class TrickRepository extends ServiceEntityRepository
             ->orderBy('t.publishDate', 'DESC');
 
         $pag = new Paginator($qb);
+
         return $pag;
     }
 

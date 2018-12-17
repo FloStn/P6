@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <h3>Validez votre compte et rejoignez la communauté !</h3>
-        <hr>
-        <p>
-            Bonjour <b>{{ user.username }}</b> !
-            <br>
-            Pour valider votre compte, <a href=" {{ url('user_activate', { 'token': user.token }) }}">cliquez ici</a> !
-        </p>
-        <hr>
-        L'équipe SnowTricks.
-    </body>
+   <body>
+      <h3>Validez votre compte et rejoignez la communauté !</h3>
+      <hr>
+      <p>
+         Bonjour <b>{{ user.username }}</b> !
+         <br>
+         Pour valider votre compte, <a href=" {{ url('user_activate', { 'token': user.token }) }}">cliquez ici</a> !
+      </p>
+      <hr>
+      L'équipe SnowTricks.
+   </body>
 </html>

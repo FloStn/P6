@@ -2,7 +2,6 @@
 
 namespace App\EventSubscriber;
 
-use App\Entity\ImageForward;
 use App\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -30,8 +29,7 @@ class ImageUploadSubscriber implements EventSubscriberInterface
     {
         $trick = $event->getSubject();
 
-        foreach ($trick->getImages()->getValues() as $image)
-        {
+        foreach ($trick->getImages()->getValues() as $image) {
             $file = $image->getFile();
             if ($file !== null) {
                 $this->fileUploader->setTargetDirectory($this->dir);

@@ -11,15 +11,22 @@ class SecurityController extends Controller
 {
     /**
      * @Route("/login", name="security_login")
+     *
+     * @param Request             $request
+     * @param AuthenticationUtils $authenticationUtils
+     *
+     * @return Symfony\Component\Form\FormRendererEngineInterface
      */
-    public function login(Request $request, AuthenticationUtils $authenticationUtils)
+    public function login(
+        Request $request,
+        AuthenticationUtils $authenticationUtils)
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('user/login.html.twig', array(
+        return $this->render('user/login.html.twig', [
             'last_username' => $lastUsername,
-            'error' => $error
-        ));
+            'error' => $error,
+        ]);
     }
 }

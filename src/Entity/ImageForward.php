@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageForwardRepository")

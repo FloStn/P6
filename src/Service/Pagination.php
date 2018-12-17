@@ -4,13 +4,13 @@ namespace App\Service;
 
 class Pagination
 {
-    CONST PER_PAGE = 10;
+    const PER_PAGE = 10;
 
     private $start;
     private $limit;
     private $totalPages;
 
-    public function init(int $page, array $total) : void
+    public function init(int $page, array $total): void
     {
         $this->totalPages = ceil(count($total) / self::PER_PAGE);
         if ($page < 1 || $page > $this->totalPages) {

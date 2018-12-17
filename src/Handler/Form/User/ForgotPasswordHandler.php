@@ -24,8 +24,7 @@ class ForgotPasswordHandler
 
     public function handle($user, $userForm)
     {
-        if ($userForm->isSubmitted() && $userForm->isValid())
-        {
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
             $user = $userRepository->findOneBy(['username' => $user->getUsername()]);
             $token = $this->tokenGen->newToken();
             $user->setToken($token);
@@ -37,7 +36,7 @@ class ForgotPasswordHandler
             $template = 'forgot_password.html.twig';
             $this->email->send($user, $title, $template);
 
-           return true;
+            return true;
         }
     }
 }

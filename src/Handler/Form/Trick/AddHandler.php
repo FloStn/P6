@@ -23,10 +23,10 @@ class AddHandler
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
             $trickData = $trickForm->getData();
             $slug = $trick->newSlug($trickData->getName());
-            
+
             $trick->setAuthor($user);
             $trick->setSlug($slug);
-            
+
             $event = new GenericEvent($trick);
             $this->eventDispatcher->dispatch(Events::IMAGE_FORWARD_UPLOADER, $event);
             $this->eventDispatcher->dispatch(Events::IMAGE_UPLOADER, $event);

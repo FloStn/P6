@@ -1,31 +1,84 @@
-{% extends "../layout.html.twig" %}
-
-{% block body %}
-
-          <!-- Card -->
-<div class="card">
-
-  <!-- Card image -->
-  <div class="view overlay">
-    <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" alt="Card image cap">
-    <a href="#!">
-      <div class="mask rgba-white-slight"></div>
-    </a>
-  </div>
-
-  <!-- Card content -->
-  <div class="card-body">
-
-    <!-- Title -->
-    <h4 class="card-title">Card title</h4>
-    <!-- Text -->
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <!-- Button -->
-    <a href="#" class="btn btn-primary">Button</a>
-
-  </div>
-
-</div>
-<!-- Card -->
-
+{% extends 'layout.html.twig' %}
+{% block stylesheets %}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link type="text/css" href="{{ asset('argon-material-design/css/argon.css?v=1.0.1') }}" rel="stylesheet">
+<link type="text/css" href="{{ asset('snowtricks/css/style.css') }}" rel="stylesheet">
+{% endblock %}
+{% block main %}
+<section class="bg">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-6 center">
+            {% include 'flash.html.twig' %}
+         </div>
+         <div class="col-lg-12 col-sm-6 mx-auto text-center" style="padding-top: 50%">
+            <h1 class="display-4" style="color: white;">Site communautaire pour Snowboarders</h1>
+         </div>
+      </div>
+   </div>
+   <div class="scrolldown">
+      <a href="#tricks"><i class="fas fa-chevron-down fa-2x"></i></a>
+   </div>
+</section>
+<section class="mt-5">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-12 col-md-12">
+            <a class="btn-sm btn-primary fas fa-plus-square" href={{ path('trick_add') }}></a>
+         </div>
+      </div>
+      <div id="tricks" class="row">
+         {% for trick in tricks %}
+         <div class="col-lg-3 col-md-2 mb-3">
+            <div class="card">
+               {% if trick.images is empty %}
+               <img class="card-img-top" src={{ asset('snowtricks/img/background1.jpg') }} height="150px" width="200px" alt="trick"></img>
+               {% else %}
+               <img class="card-img-top" src={{ asset('upload/trick/image/'~trick.images|first.name) }} height="150px" width="200px" alt="trick"></img>
+               {% endif %}
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-md-6 text-center">
+                        <a class="h6" href={{ path('trick_details', {'slug': trick.slug, 'page': 1}) }}>{{ trick.name }}</a>
+                     </div>
+                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                     <div class="mx-auto col-md-6 text-right text-sm-right">
+                        <a class="fas fa-pen" href={{ path('trick_edit', {'slug': trick.slug}) }}></a>
+                        <a class="fas fa-trash-alt text-danger" data-toggle="modal" data-target="#modalTrickDelete{{ trick.id }}"></a>
+                     </div>
+                     {% endif %}
+                  </div>
+               </div>
+            </div>
+            {% include 'modal/trick_delete.html.twig' %}
+         </div>
+         {% endfor %}
+      </div>
+      <div class="row">
+         <div class="col-md-12 text-center p-3">
+            {% if page < totalPages %}
+            <a href={{ path('tricks_index', {'page': page + 1}) }}#tricks class="btn btn-primary">Voir plus de figures</a>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+   {% if page >= 4 %}
+   <div class="scrollup">
+      <a href="#tricks"><i class="fas fa-chevron-up fa-2x"></i></a>
+   </div>
+   {% endif %}
+</section>
+{% endblock %}
+{% block javascript %}
+<script
+   src="https://code.jquery.com/jquery-3.3.1.min.js"
+   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+   crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ asset('argon-material-design/vendor/headroom/headroom.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('argon-material-design/js/argon.js?v=1.0.1') }}"></script>
+<script type="text/javascript" src="{{ asset('snowtricks/js/scroll.js') }}"></script>
 {% endblock %}

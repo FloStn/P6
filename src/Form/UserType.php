@@ -17,29 +17,29 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email',             EmailType::class, array(
-                'attr' => array(
+            ->add('email', EmailType::class, [
+                'attr' => [
                     'class' => 'form-control form-control-alternative',
-                    'placeholder' => 'Email'
-                )
-            ))
-            ->add('username',          TextType::class, array(
-                'attr' => array(
+                    'placeholder' => 'Email',
+                ],
+            ])
+            ->add('username', TextType::class, [
+                'attr' => [
                     'class' => 'form-control form-control-alternative',
-                    'placeholder' => 'Nom d\'utilisateur'
-                )
-            ))
-            ->add('rawPassword',       RepeatedType::class, array(
-                  'type'            => PasswordType::class,
+                    'placeholder' => 'Nom d\'utilisateur',
+                ],
+            ])
+            ->add('rawPassword', RepeatedType::class, [
+                  'type' => PasswordType::class,
                   'invalid_message' => 'Les mots de passe doivent correspondre.',
-                  'first_options'  => array('attr' => array('class' => 'form-control form-control-alternative', 'placeholder' => 'Mot de passe')),
-                  'second_options' => array('attr' => array('class' => 'form-control form-control-alternative', 'placeholder' => 'Confirmez le mot de passe')),
-            ))
-            ->add('save', SubmitType::class, array(
-                'attr' => array(
-                    'class' => 'btn btn-primary btn-block btn-lg'
-                )
-            ))
+                  'first_options' => ['attr' => ['class' => 'form-control form-control-alternative', 'placeholder' => 'Mot de passe']],
+                  'second_options' => ['attr' => ['class' => 'form-control form-control-alternative', 'placeholder' => 'Confirmez le mot de passe']],
+            ])
+            ->add('save', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary btn-block btn-lg',
+                ],
+            ])
         ;
     }
 

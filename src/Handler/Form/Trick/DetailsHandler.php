@@ -22,7 +22,7 @@ class DetailsHandler
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
 
-           return true;
+            return true;
         }
     }
 }
