@@ -24,13 +24,12 @@ class RegisterHandler
 
     public function handle($user, $userForm)
     {
-        if ($userForm->isSubmitted() && $userForm->isValid())
-        {
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
             $password = $this->passwordEncoder->encodePassword($user, $user->getRawPassword());
             $user->setPassword($password);
             $token = $this->tokenGen->newToken();
             $user->setToken($token);
-            
+
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 

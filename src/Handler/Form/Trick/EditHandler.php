@@ -24,7 +24,7 @@ class EditHandler
             $event = new GenericEvent($trick);
             $this->eventDispatcher->dispatch(Events::IMAGE_FORWARD_UPLOADER, $event);
             $this->eventDispatcher->dispatch(Events::IMAGE_UPLOADER, $event);
-            
+
             $editDate = new \Datetime();
             $trick->setEditDate($editDate);
 
@@ -32,6 +32,6 @@ class EditHandler
             $this->entityManager->flush();
 
             return true;
-          }
+        }
     }
 }

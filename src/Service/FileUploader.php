@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Service;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -16,6 +17,7 @@ class FileUploader
     public function genFileName(UploadedFile $file)
     {
         $this->fileName = md5(uniqid()).'.'.$file->guessExtension();
+
         return $this->fileName;
     }
 

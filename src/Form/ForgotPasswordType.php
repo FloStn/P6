@@ -14,17 +14,17 @@ class ForgotPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array(
-                'attr' => array(
+            ->add('username', TextType::class, [
+                'attr' => [
                     'class' => 'form-control form-control-alternative',
-                    'placeholder' => 'Nom d\'utilisateur'
-                )
-            ))
-            ->add('save', SubmitType::class, array(
-                'attr' => array(
-                    'class' => 'btn btn-primary btn-block btn-md'
-                )
-            ))
+                    'placeholder' => 'Nom d\'utilisateur',
+                ],
+            ])
+            ->add('save', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary btn-block btn-md',
+                ],
+            ])
         ;
     }
 

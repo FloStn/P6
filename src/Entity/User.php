@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Entity\Avatar;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -52,7 +51,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="array", nullable=true)
      */
-    private $roles = array();
+    private $roles = [];
 
     private $rawPassword;
 
@@ -60,7 +59,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->roles = array('ROLE_USER');
+        $this->roles = ['ROLE_USER'];
         $avatar = new Avatar();
         $this->avatar = $avatar;
         $this->isActive = 0;
@@ -169,7 +168,6 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
-
     }
 
     public function getRawPassword(): ?string

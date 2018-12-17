@@ -59,6 +59,7 @@ class CommentRepository extends ServiceEntityRepository
             ->orderBy('c.publishDate', 'DESC');
 
         $pag = new Paginator($qb);
+
         return $pag;
     }
 }

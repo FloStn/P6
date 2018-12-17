@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
@@ -63,6 +62,7 @@ class Image
     public function setFile($file)
     {
         $this->file = $file;
+
         return $this;
     }
 

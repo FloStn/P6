@@ -25,13 +25,13 @@ class Email
                 ->setTo($to)
                 ->setBody(
                     $this->twig->render(
-                        'email/'.$template, array(
-                            'user' => $user
-                        )
+                        'email/'.$template, [
+                            'user' => $user,
+                        ]
                 ),
                     'text/html'
                 );
-        
+
         $this->mailer->send($message);
     }
 }
