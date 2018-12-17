@@ -33,7 +33,7 @@ class UserController extends Controller
         $userForm = $this->createForm(UserType::class, $user)->handleRequest($request);
 
         if ($handler->handle($user, $userForm)) {
-            $request->getSession()->getFlashBag()->add('success', 'Votre compte a été créé ! Veuillez vous rendre sur le lien envoyé sur votre email afin de l\'activer.');
+            $request->getSession()->getFlashBag()->add('success', 'Votre compte a été créé ! Un email contenant le lien d\'activation vous a été envoyé.');
 
             return $this->redirectToRoute('tricks_index', ['page' => 1]);
         }
@@ -69,7 +69,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('warning', 'Votre compte a été activé ! Bienvenue parmis nous !');
+            $request->getSession()->getFlashBag()->add('success', 'Votre compte a été activé ! Vous pouvez désormais vous connecter.');
 
             return $this->redirectToRoute('tricks_index', ['page' => 1]);
         }
