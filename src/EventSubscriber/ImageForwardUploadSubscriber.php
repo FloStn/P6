@@ -30,7 +30,7 @@ class ImageForwardUploadSubscriber implements EventSubscriberInterface
         $trick = $event->getSubject();
         $file = $event->getSubject()->getImageForward();
 
-        if ($file !== null) {
+        if ($file->getFile() !== null) {
             $this->fileUploader->setTargetDirectory($this->dir);
             $fileName = $this->fileUploader->genFileName($file->getFile());
             $this->fileUploader->upload($file->getFile());
