@@ -98,6 +98,9 @@ class Trick
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->publishDate = new \Datetime();
+        $this->imageForward = new ImageForward();
+        $this->imageForward->setFileName('default.jpg');
+        $this->imageForward->setTrick($this);
     }
 
     public function getId()
