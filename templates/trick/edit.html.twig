@@ -101,8 +101,13 @@
                <h3>Groupe</h3>
                {{ form_widget(trickForm.trickGroup) }}
             </div>
-            <div class="col-12 text-center p-3">
-               {{ form_widget(trickForm.save) }}
+            <div class="row">
+               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-center p-5">
+                  <a class="btn btn-danger text-white" data-toggle="modal" data-target="#modalTrickDelete{{ trick.id }}">Supprimer la figure</a>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-center p-5">
+                  {{ form_widget(trickForm.save) }}
+               </div>
             </div>
          </div>
       </div>
@@ -110,6 +115,7 @@
       {{ form_end(trickForm) }}
    </section>
    {% if trick.imageForward is not null %}{% include 'modal/image_forward_delete.html.twig' %}{% endif %}
+   {% include 'modal/trick_delete.html.twig' %}
 </main>
 {% endblock %}
 {% block javascript %}

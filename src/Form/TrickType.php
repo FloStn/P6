@@ -60,7 +60,7 @@ class TrickType extends AbstractType
             ->add('save', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary', ],
-                'label' => 'Enregistrer les changements',
+                'label' => 'Enregistrer',
             ])
         ;
     }
